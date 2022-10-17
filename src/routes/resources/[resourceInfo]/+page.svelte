@@ -1,6 +1,10 @@
+<svelte:head>
+    <title>{data.name} - Speedgot</title>
+</svelte:head>
 <script>
     import '$lib/bbStyles.css';
     import DownloadButton from "$lib/resource/DownloadButton.svelte";
+    import {onMount} from "svelte";
 
     export let data;
 
@@ -12,6 +16,10 @@
         }
         return String.fromCharCode(...new Uint16Array(bytes.buffer));
     }
+
+    onMount(() => {
+        window.history.pushState({}, "", "/resources/" + data.file.url.split("/")[1]);
+    });
 </script>
 <style>
 
