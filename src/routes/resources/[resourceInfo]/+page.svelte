@@ -1,5 +1,6 @@
 <script>
     import '$lib/bbStyles.css';
+    import DownloadButton from "$lib/resource/DownloadButton.svelte";
 
     export let data;
 
@@ -44,6 +45,30 @@
         width: 90%;
     }
 
+    .title-container {
+        max-width: 77%;
+    }
+
+    .title-container > h2 {
+        margin-top: 0.25em;
+        margin-bottom: -0.05em;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .title-container > h2 >  .latest-version {
+        color: #7f7f7f;
+        font-weight: normal;
+    }
+
+    .title-overflow-prevention {
+        display: inline-block;
+        max-width: 75%;
+        white-space: nowrap;
+        overflow-x: hidden;
+        margin-bottom: -0.2em;
+    }
+
     @media (orientation: landscape) {
         div.header {
             display: inline-flex;
@@ -60,9 +85,15 @@
         div.rightBox {
             width: 25%
         }
+        div.title-container {
+            padding-left: 1em
+        }
+        .right {
+            margin-left: auto;
+            justify-self: right;
+        }
     }
 </style>
-{data.name} {data.latestResourceVersion.name}
 <br>
 <div class="boxes">
     <div class="leftBox shadowBox">
@@ -71,16 +102,25 @@
                 <img src={"data:image/png;base64," + data.icon.data} alt="{data.name} icon" height="64" width="64">
             {/if}
             <div class="title-container">
-                <h2>{data.name}</h2>
-                {data.tag}
+                <h2>
+                    <span class="title-overflow-prevention">
+                        {data.name}
+                    </span>
+                    <span class="latest-version">
+                        {data.latestResourceVersion.name}
+                    </span>
+                </h2>
+                <span class="tag">
+                    {data.tag}
+                </span>
             </div>
             <br>
             <div class="right">
-                <div class="downloadButton">
-                    Download
-                </div>
+                <DownloadButton resource={data}/>
             </div>
         </div>
+        <br>
+        <br>
         <div class="description">
             {@html atob(data.description).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")}
         </div>

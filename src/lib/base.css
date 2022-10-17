@@ -1,13 +1,17 @@
+.shadowBox {
+    background-color: rgba(242, 242, 242, 0.5);
+    box-shadow: 0 0 33px -15px #000000bf;
+    padding: 1em;
+    border-radius: 12px;
+}
+
 @media (prefers-color-scheme: dark) {
     body, html {
         background-color: #262626;
         color: white;
     }
-}
 
-.shadowBox {
-    background-color: #34343480;
-    box-shadow: 0 0 33px -15px #000000bf;
-    padding: 1em;
-    border-radius: 12px;
+    .shadowBox {
+        background-color: #34343480;
+    }
 }
