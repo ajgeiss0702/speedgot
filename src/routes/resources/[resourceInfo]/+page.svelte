@@ -18,7 +18,7 @@
     }
 
     onMount(() => {
-        window.history.pushState({}, "", "/resources/" + data.file.url.split("/")[1]);
+        window.history.replaceState({}, "", "/resources/" + data.file.url.split("/")[1]);
     });
 </script>
 <style>
