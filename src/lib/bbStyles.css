@@ -1,3 +1,31 @@
 .bbCodeImage {
     max-width: 100%;
 }
+.bbCodeSpoilerButton {
+    font-style: normal;
+    font-size: 12px;
+    font-family: droid sans,Arial,sans-serif;
+    color: #535353;
+    background-color: #d9d9d9;
+    padding: 0 10px;
+    border-width: 0;
+    border-top-color: #fff;
+    border-radius: 3px;
+    text-align: center;
+    outline: none;
+    line-height: 36px;
+    display: inline-block;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.1);
+    -webkit-appearance: none;
+    font-weight: 600;
+    height: 36px;
+}
+.bbCodeSpoilerButton:hover {
+    background-color: #ed8106;
+    color: white;
+}
+.bbCodeSpoilerText {
+    display: none;
+}

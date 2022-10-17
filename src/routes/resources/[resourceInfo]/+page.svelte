@@ -8,17 +8,20 @@
 
     export let data;
 
-    function fromBinary(encoded) {
-        const binary = atob(encoded);
-        const bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < bytes.length; i++) {
-            bytes[i] = binary.charCodeAt(i);
-        }
-        return String.fromCharCode(...new Uint16Array(bytes.buffer));
-    }
-
     onMount(() => {
-        window.history.replaceState({}, "", "/resources/" + data.file.url.split("/")[1]);
+        const slug = data.file.url.split("/")[1];
+        if(slug.includes(".")) {
+            window.history.replaceState({}, "", "/resources/" + slug);
+        } else {
+            console.warn("Slug (" + slug + ") does not contain a dot! Might be invalid");
+        }
+
+        for (let spoilerButton of document.getElementsByClassName("bbCodeSpoilerButton")) {
+            spoilerButton.onclick = () => {
+                spoilerButton.nextElementSibling.classList.toggle("bbCodeSpoilerText");
+            }
+        }
+
     });
 </script>
 <style>
