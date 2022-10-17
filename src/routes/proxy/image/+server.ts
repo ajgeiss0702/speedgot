@@ -5,7 +5,9 @@ export async function GET({ url }) {
     if(!url.searchParams.get("url")) {
         throw error(400, "no url");
     }
-    const imageResponse = await fetch(url.searchParams.get("url"));
+    const fetchingUrl: string = url.searchParams.get("url");
+
+    const imageResponse = await fetch(fetchingUrl);
 
     const blob = await imageResponse.blob();
 

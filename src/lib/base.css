@@ -4,3 +4,10 @@
         color: white;
     }
 }
+
+.shadowBox {
+    background-color: #34343480;
+    box-shadow: 0 0 33px -15px #000000bf;
+    padding: 1em;
+    border-radius: 12px;
+}
