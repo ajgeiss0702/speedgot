@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>Resources - Speedgot</title>
+</svelte:head>
 <script>
     import Resource from "$lib/Resource.svelte";
 

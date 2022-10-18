@@ -5,13 +5,20 @@
     import '$lib/bbStyles.css';
     import DownloadButton from "$lib/resource/DownloadButton.svelte";
     import {onMount} from "svelte";
+    import {Button} from "sveltestrap";
+    import {commas} from "$lib/utils";
+    import LoadingText from "$lib/LoadingText.svelte";
+    import Stars from "$lib/Stars.svelte";
 
     export let data;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let authorInfoPromise = new Promise(() => {});
+
     let description = atob(data.description).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2");
 
+    const slug = data.file.url.split("/")[1];
     onMount(() => {
-        const slug = data.file.url.split("/")[1];
         if(slug.includes(".")) {
             window.history.replaceState({}, "", "/resources/" + slug);
         } else {
@@ -23,6 +30,8 @@
                 spoilerButton.nextElementSibling.classList.toggle("bbCodeSpoilerText");
             }
         }
+
+        authorInfoPromise = fetch("https://api.spiget.org/v2/authors/" + data.author.id).then(r => r.json());
 
         //import bbCodeParser from 'js-bbcode-parser';
         /*let url = "https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=" + data.id;
@@ -44,6 +53,9 @@
 </script>
 <style>
 
+    div.center {
+        text-align: center;
+    }
     div.boxes {
         max-width: 99vw;
 
@@ -72,6 +84,7 @@
         margin-right: auto;
         margin-bottom: 10px;
         width: 90%;
+        overflow: hidden;
     }
 
     .title-container > h2 {
@@ -84,6 +97,33 @@
     .title-container > h2 >  .latest-version {
         color: #7f7f7f;
         font-weight: normal;
+    }
+    .withTitle {
+        padding: 0;
+    }
+    .withTitle > .content {
+        padding: 0.25em 1em 0.5em;
+        font-size: 13px;
+    }
+    .withTitle > .title {
+        background-color: rgba(var(--bs-warning-rgb), 1);
+        color: black;
+    }
+
+    .left-text {
+        text-align: left;
+    }
+
+    .key-values {
+        display: flex;
+    }
+    .key-values > .value {
+        margin-left: auto;
+        justify-self: right;
+    }
+
+    .key-values > .value > div {
+        text-align: right;
     }
 
     @media (orientation: landscape) {
@@ -121,7 +161,6 @@
         }
     }
 </style>
-<br>
 <div class="boxes">
     <div class="leftBox shadowBox">
         <div class="header">
@@ -155,10 +194,71 @@
         </div>
     </div>
     <div class="rightBox">
-        <div class="innerBox shadowBox">
-            Stuff<br>
-            and<br>
-            things<br>
+        <div class="innerBox center">
+            <Button small class="innerBox" outline color="warning" href="https://spigotmc.org/resources/{slug}" target="_blank">View on SpigotMC</Button>
+        </div>
+        <div class="innerBox shadowBox center withTitle">
+            <div class="title">
+                Resource Information
+            </div>
+            <div class="content left-text">
+                <div class="key-values">
+                    <span class="key">Author:</span>
+                    <div class="value">
+                        {#await authorInfoPromise}
+                            <LoadingText/>
+                        {:then author}
+                            {author.name}
+                        {/await}
+                    </div>
+                </div>
+                <div class="key-values">
+                    <span class="key">Total Downloads:</span>
+                    <span class="value">{commas(data.downloads)}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">First Release:</span>
+                    <span class="value">{data.releaseDate}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">Last Update:</span>
+                    <span class="value">{data.updateDate}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">Category:</span>
+                    <span class="value">{data.category}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">All-Time Rating:</span>
+                    <div class="value">
+                        <Stars rating={data.rating.average}/>
+                        <div>{data.rating.count} ratings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="innerBox shadowBox center withTitle">
+            <div class="title">
+                Version {data.latestResourceVersion.name}
+            </div>
+            <div class="content left-text">
+                <div class="key-values">
+                    <span class="key">Released:</span>
+                    <span class="value">{data.latestResourceVersion.releaseDate}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">Downloads:</span>
+                    <span class="value">{commas(data.latestResourceVersion.downloads)}</span>
+                </div>
+                <div class="key-values">
+                    <span class="key">Version Rating:</span>
+                    <div class="value">
+                        <Stars rating={data.latestResourceVersion.rating.average}/>
+                        <div>{data.latestResourceVersion.rating.count} ratings</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
