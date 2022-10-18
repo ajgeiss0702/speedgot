@@ -1,0 +1,11 @@
+.key-values {
+    display: flex;
+}
+.key-values > .value {
+    margin-left: auto;
+    justify-self: right;
+}
+
+.key-values > .value > div {
+    text-align: right;
+}

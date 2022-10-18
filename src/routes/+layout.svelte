@@ -28,7 +28,7 @@
         margin-top: 1em;
     }
 </style>
-<Navbar color="warning" warnbing expand="md">
+<Navbar color="secondary" warnbing expand="md">
     <NavbarBrand href="/">Speedgot</NavbarBrand>
     <NavbarToggler on:click={() => (navOpen = !navOpen)} />
     <Collapse {navOpen} navbar expand="md" on:update={e => navOpen = e.detail.isOpen}>
