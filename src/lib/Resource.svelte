@@ -62,6 +62,7 @@
     <div class="shadowBox header">
         {#if resource.icon && resource.icon.url}
             <img src={"data:image/png;base64," + resource.icon.data} alt="{resource.name} icon" height="64" width="64">
+            <!--<img src={"/proxy/image?url=https://spigotmc.org/" + encodeURIComponent(resource.icon.url)} alt="{resource.name} icon" height="64" width="64">-->
         {:else}
             <img src="/img/resource_icon.png" alt="{resource.name} icon" height="64" width="64"/>
         {/if}
