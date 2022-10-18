@@ -15,3 +15,12 @@
         background-color: #34343480;
     }
 }
+
+.pagesNav {
+    display: inline-block;
+}
+
+.inline {
+    display: inline-block !important;
+    width: auto;
+}

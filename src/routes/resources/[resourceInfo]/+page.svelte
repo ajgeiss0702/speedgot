@@ -56,10 +56,6 @@
         width: 90%;
     }
 
-    .title-container {
-        max-width: 77%;
-    }
-
     .title-container > h2 {
         margin-top: 0.25em;
         margin-bottom: -0.05em;
@@ -70,14 +66,6 @@
     .title-container > h2 >  .latest-version {
         color: #7f7f7f;
         font-weight: normal;
-    }
-
-    .title-overflow-prevention {
-        display: inline-block;
-        max-width: 75%;
-        white-space: nowrap;
-        overflow-x: hidden;
-        margin-bottom: -0.2em;
     }
 
     @media (orientation: landscape) {
@@ -103,6 +91,16 @@
             margin-left: auto;
             justify-self: right;
         }
+        .title-container {
+            max-width: 77%;
+        }
+        .title-overflow-prevention {
+            display: inline-block;
+            max-width: 75%;
+            white-space: nowrap;
+            overflow-x: hidden;
+            margin-bottom: -0.2em;
+        }
     }
 </style>
 <br>
@@ -111,6 +109,8 @@
         <div class="header">
             {#if data.icon && data.icon.url}
                 <img src={"data:image/png;base64," + data.icon.data} alt="{data.name} icon" height="64" width="64">
+            {:else}
+                <img src="/img/resource_icon.png" alt="{data.name} icon" height="64" width="64"/>
             {/if}
             <div class="title-container">
                 <h2>

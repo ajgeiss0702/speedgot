@@ -33,6 +33,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"nprogress": "^0.2.0"
+		"bootstrap": "^5.2.2",
+		"bootstrap-icons": "^1.9.1",
+		"nprogress": "^0.2.0",
+		"sveltestrap": "^5.9.0"
 	}
 }
