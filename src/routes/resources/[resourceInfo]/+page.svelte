@@ -8,6 +8,8 @@
 
     export let data;
 
+    let description = atob(data.description).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2");
+
     onMount(() => {
         const slug = data.file.url.split("/")[1];
         if(slug.includes(".")) {
@@ -21,6 +23,22 @@
                 spoilerButton.nextElementSibling.classList.toggle("bbCodeSpoilerText");
             }
         }
+
+        //import bbCodeParser from 'js-bbcode-parser';
+        /*let url = "https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=" + data.id;
+        console.log(url)
+        fetch("/proxy/image?url=" + encodeURIComponent(url))
+            .then(r => r.json())
+            .then(resource => {
+                if(!resource.description) {
+                    console.dir(resource);
+                    throw new Error("No description from spigot api response!");
+                }
+                description = bbCodeParser.parse(resource.description);
+            })
+            .catch(e => {
+                console.error(e);
+            })*/
 
     });
 </script>
@@ -133,7 +151,7 @@
         <br>
         <br>
         <div class="description">
-            {@html atob(data.description).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")}
+            {@html description}
         </div>
     </div>
     <div class="rightBox">
