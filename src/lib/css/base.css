@@ -40,3 +40,7 @@
 .center {
     text-align: center;
 }
+
+.small-text {
+    font-size: 0.8em;
+}

@@ -3,6 +3,8 @@
     import {Icon} from "sveltestrap";
 
     import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
+    import Stars from "$lib/Stars.svelte";
+    import DateStamp from "$lib/DateStamp.svelte";
 
     export let resource;
 </script>
@@ -30,6 +32,7 @@
         margin-left: auto;
         justify-self: right;
         vertical-align: middle;
+        text-align: right;
     }
     .title-container {
         max-width: 77%;
@@ -52,17 +55,9 @@
         color: #7f7f7f;
         font-weight: normal;
     }
-    .resource-icon {
-        border-radius: 10px;
-    }
     @media (orientation: landscape) {
         a {
             max-width: 60vw;
-        }
-    }
-    @media (prefers-color-scheme: dark) {
-        .no-icon {
-            background-color: rgba(255, 255, 255, 0.5);
         }
     }
 </style>
@@ -83,8 +78,14 @@
         </span>
         </div>
         <br>
-        <div class="downloadCount right">
+        <div class="right">
             <Icon name="download"/> {commas(resource.downloads)}
+            <br>
+            <Stars rating={resource.rating.average}/>
+            <span class="align-top">({resource.rating.count})</span>
+            <br>
+            <span class="text-secondary small-text">Updated: </span>
+            <span class="small-text"><DateStamp epochSeconds={resource.updateDate}/></span>
         </div>
     </div>
 </a>

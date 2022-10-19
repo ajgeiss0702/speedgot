@@ -28,7 +28,7 @@
 </script>
 <style>
     div {
-        style: inline-block;
+        display: inline-block;
     }
 </style>
 <div title="{shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()} at {dateString(date, false)}">

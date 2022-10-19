@@ -20,8 +20,7 @@
         display: inline-block;
         color: gold;
         margin-top: -20px;
-        margin-left: -10ex;
-        min-width: 10em;
+        min-width: 13ex;
     }
 </style>
 <div title={rating}>
