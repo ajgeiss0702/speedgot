@@ -1,6 +1,6 @@
 <script>
     import {onDestroy, onMount} from "svelte";
-    import {shortMonths, dateString} from "$lib/utils";
+    import {shortMonths, dateString, isSameDay, yesterday} from "$lib/utils";
 
     export let epochSeconds;
 
@@ -19,6 +19,10 @@
             updateInterval = setInterval(() => {
                 updateSecondsAgo();
             }, 15e3);
+        } else if(isSameDay(new Date(), date) || isSameDay(yesterday(), date)) {
+            updateInterval = setInterval(() => {
+                date = date; // tell svelte to re-evaluate isSameDay ifs below
+            }, 60 * 60e3);
         }
     });
 
@@ -34,6 +38,10 @@
 <div title="{shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()} at {dateString(date, false)}">
     {#if secondsAgo < 60 * 60}
         {Math.round(secondsAgo / 60)} mins ago
+    {:else if isSameDay(new Date(), date)}
+        Today at {dateString(date, false)}
+    {:else if isSameDay(yesterday(), date)}
+        Yesterday at {dateString(date, false)}
     {:else}
         {shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()}
     {/if}
