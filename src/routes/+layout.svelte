@@ -24,8 +24,6 @@
 
     let navOpen = false;
     const toggleNav = () => navOpen = !navOpen;
-
-    $: console.log({ navOpen })
 </script>
 <style>
     div {
