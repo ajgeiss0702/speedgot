@@ -58,6 +58,6 @@
 </div>
 {#if data.links.additionalInformation}
     <a class="stealthLink" href={data.links.additionalInformation} target="_blank">
-        Find more info at {getHostname(data.links.additionalInformation)}
+        Find more info at {getHostname(data.links.additionalInformation)}...
     </a>
 {/if}

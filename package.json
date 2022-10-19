@@ -17,6 +17,7 @@
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "next",
+		"@types/sanitize-html": "^2.6.2",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"eslint": "8.22.0",
@@ -38,6 +39,7 @@
 		"bootstrap-icons": "^1.9.1",
 		"js-bbcode-parser": "^4.0.0",
 		"nprogress": "^0.2.0",
+		"sanitize-html": "^2.7.2",
 		"seedrandom": "^3.0.5",
 		"sveltestrap": "^5.9.0"
 	}

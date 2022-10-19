@@ -73,7 +73,7 @@
             Version: {review.version}
         </span>
         <br>
-        <div class="message">
+        <div class="bb-content message">
             {@html decodeBase64Content(review.message)}
         </div>
         {#if review.responseMessage}
@@ -91,7 +91,7 @@
                         Author's response
                     </span>
                     <br>
-                    <div class="message">
+                    <div class="bb-content message">
                         {@html decodeBase64Content(review.responseMessage)}
                     </div>
                 </div>

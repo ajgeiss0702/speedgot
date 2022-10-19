@@ -3,4 +3,6 @@
 
     export let data;
 </script>
-{@html decodeBase64Content(data.description)}
+<div class="bb-content">
+    {@html decodeBase64Content(data.description)}
+</div>

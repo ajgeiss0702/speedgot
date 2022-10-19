@@ -29,3 +29,7 @@
 .bbCodeSpoilerText {
     display: none;
 }
+
+.bb-content img {
+    max-width: 100%;
+}
