@@ -1,80 +1,32 @@
-.full-star {
-    margin: 0 0;
-    position: relative;
+.star {
+    font-size: x-large;
     display: inline-block;
+    width: 1.5ex;
+    color: gray;
+}
+.star:last-child {
+    margin-right: 0;
+}
+.star:before {
+    content:'\2605';
+}
+.star.full {
     color: gold;
-    width: 0;
-    height: 0;
-    border-right: 10px solid transparent;
-    border-bottom: 7px solid gold;
-    border-left: 10px solid transparent;
-    transform: rotate(35deg);
 }
-.full-star:before {
-    border-bottom: 8px solid gold;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    position: absolute;
-    height: 0;
-    width: 0;
-    top: -4.5px;
-    left: -6.5px;
-    display: block;
-    content: '';
-    transform: rotate(-35deg);
-}
-.full-star:after {
-    position: absolute;
-    display: block;
+.star.half:after {
+    content:'\2605';
     color: gold;
-    top: 1px;
-    left: -10.5px;
-    width: 0;
-    height: 0;
-    border-right: 10px solid transparent;
-    border-bottom: 7px solid gold;
-    border-left: 10px solid transparent;
-    transform: rotate(-70deg);
-    content: '';
-}
-
-.empty-star {
-    margin: 0 0;
-    position: relative;
-    display: inline-block;
-    color: lightgray;
-    width: 0;
-    height: 0;
-    border-right: 10px solid transparent;
-    border-bottom: 7px solid lightgray;
-    border-left: 10px solid transparent;
-    transform: rotate(35deg);
-}
-.empty-star:before {
-    border-bottom: 8px solid lightgray;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
     position: absolute;
-    height: 0;
-    width: 0;
-    top: -4.5px;
-    left: -6.5px;
-    display: block;
-    content: '';
-    transform: rotate(-35deg);
+    margin-left: calc(-0.5ex + -1.13ex);
+    width: calc(0.5ex + 0.333ex);
+    overflow: hidden;
 }
-.empty-star:after {
+.star.custom:after {
+    content:'\2605';
+    color: gold;
     position: absolute;
-    display: block;
-    color: lightgray;
-    top: 1px;
-    left: -10.5px;
-    width: 0;
-    height: 0;
-    border-right: 10px solid transparent;
-    border-bottom: 7px solid lightgray;
-    border-left: 10px solid transparent;
-    transform: rotate(-70deg);
-    content: '';
-}
+    overflow: hidden;
+    margin-left: calc(var(--star-percent) - ((1ex - var(--star-percent) * -0.5) * 1.75));
+    width: calc(var(--star-percent) + 0.333ex);
 
+}
