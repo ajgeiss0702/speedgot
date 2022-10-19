@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>Resource Search - Speedgot</title>
+</svelte:head>
 <script>
     import Resource from "$lib/Resource.svelte";
     import {Input} from "sveltestrap";
