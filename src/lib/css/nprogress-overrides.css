@@ -1,0 +1,10 @@
+#nprogress .spinner-icon {
+    border-top-color: var(--bs-warning);
+    border-left-color: var(--bs-warning);
+}
+#nprogress .peg {
+    box-shadow: 0 0 10px var(--bs-warning), 0 0 5px var(--bs-warning);
+}
+#nprogress .bar {
+    background: var(--bs-warning);
+}

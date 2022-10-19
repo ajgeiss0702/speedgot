@@ -5,8 +5,8 @@
     import 'nprogress/nprogress.css';
     import {navigating} from "$app/stores";
     import NProgress from 'nprogress';
-    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Styles} from "sveltestrap";
-    import {onMount} from "svelte";
+    import "$lib/css/nprogress-overrides.css";
+    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "sveltestrap";
 
     NProgress.configure({
         // Full list: https://github.com/rstacruz/nprogress#configuration
