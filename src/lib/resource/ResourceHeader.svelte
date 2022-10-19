@@ -49,7 +49,7 @@
     <ResourceIcon resource={data}/>
     <div class="title-container">
         <h2>
-        <span class="title-overflow-prevention text-truncate">
+        <span class="title-overflow-prevention text-truncate" title={data.name}>
             {data.name}
         </span>
             <span class="latest-version">

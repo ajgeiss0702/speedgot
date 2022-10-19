@@ -71,7 +71,7 @@
         <ResourceIcon {resource}/>
         <div class="title-container">
             <h2>
-            <span class="title-overflow-prevention text-truncate">
+            <span class="title-overflow-prevention text-truncate" title={resource.name}>
                 {resource.name}
             </span>
                 <span class="latest-version">
