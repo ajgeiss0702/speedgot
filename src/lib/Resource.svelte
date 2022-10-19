@@ -2,7 +2,6 @@
     import {commas} from "$lib/utils";
     import {Icon} from "sveltestrap";
 
-    import 'bootstrap-icons/font/bootstrap-icons.css';
     import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
 
     export let resource;

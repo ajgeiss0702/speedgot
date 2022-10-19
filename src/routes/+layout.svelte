@@ -1,5 +1,6 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.min.css';
+    import 'bootstrap-icons/font/bootstrap-icons.css';
     import '$lib/css/base.css';
     import 'nprogress/nprogress.css';
     import {navigating} from "$app/stores";
