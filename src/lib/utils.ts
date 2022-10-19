@@ -11,9 +11,7 @@ export function getHostname(link: string) {
 
 export function decodeBase64Content(d: string) {
     return sanitizeHtml(
-        atob(d)
-            .replaceAll("â", "")
-            .replaceAll("Â", "")
+        decodeUnicode(d)
             .replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2"),
         {
             allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'iframe', 'button', 'span' ]),
@@ -27,7 +25,19 @@ export function decodeBase64Content(d: string) {
     )
 }
 
-export function dateString(date = new Date(), seconds: boolean = true) {
+function decodeUnicode(str: string): string {
+    // Going backward: from byte-stream to percent-encoding, to original string.
+    return decodeURIComponent(
+        atob(str)
+            .split('')
+            .map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+            })
+            .join('')
+    )
+}
+
+export function dateString(date = new Date(), seconds = true) {
     let d;
 
     if(date instanceof Date) {
