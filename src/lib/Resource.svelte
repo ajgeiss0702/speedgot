@@ -39,7 +39,7 @@
     }
     .title-overflow-prevention {
         display: inline-block;
-        max-width: 75%;
+        max-width: 100%;
         white-space: nowrap;
         overflow-x: hidden;
         margin-bottom: -0.2em;
@@ -60,13 +60,18 @@
             max-width: 60vw;
         }
     }
+    @media (orientation: portrait) {
+        .right {
+            display: none;
+        }
+    }
 </style>
 <a href="/resources/{resource.id}">
     <div class="shadowBox header">
         <ResourceIcon {resource}/>
         <div class="title-container">
             <h2>
-            <span class="title-overflow-prevention">
+            <span class="title-overflow-prevention text-truncate">
                 {resource.name}
             </span>
                 <span class="latest-version">
