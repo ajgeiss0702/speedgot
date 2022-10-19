@@ -3,8 +3,8 @@
 </svelte:head>
 <script>
     import '$lib/bbStyles.css';
-    import {onMount} from "svelte";
-    import {Button, Nav, NavItem, NavLink} from "sveltestrap";
+    import {onMount, setContext} from "svelte";
+    import {Button, Icon, Nav, NavItem, NavLink} from "sveltestrap";
     import ResourceInfo from "$lib/resource/ResourceInfo.svelte";
     import VersionInfo from "$lib/resource/VersionInfo.svelte";
     import ResourceHeader from "$lib/resource/ResourceHeader.svelte";
@@ -12,6 +12,19 @@
     import LoadingText from "$lib/LoadingText.svelte";
 
     export let data;
+
+    let setAuthor = () => {console.warn("premature setAuthor!")};
+    let rejectAuthor = () => {console.warn("premature rejectAuthor!")};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let author = new Promise((resolve, reject) => {
+        setAuthor = resolve;
+        rejectAuthor = reject;
+    });
+    setContext("author", {
+        getAuthor: () => author,
+        setAuthor: a => setAuthor(a),
+        rejectAuthor: e => rejectAuthor(e)
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let updateCountPromise = new Promise(() => {});
@@ -162,7 +175,7 @@
                 <NavLink href="/resources/{slug}/history" active={$page.url.pathname.endsWith("history")}>Version History</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href={"https://spigotmc.org/" + data.links.discussion} target="_blank">Discussion</NavLink>
+                <NavLink href={"https://spigotmc.org/" + data.links.discussion} target="_blank">Discussion <Icon name="box-arrow-up-right"/></NavLink>
             </NavItem>
         </Nav>
         <div class="description">

@@ -1,17 +1,26 @@
 <script>
     import LoadingText from "$lib/LoadingText.svelte";
-    import {onMount} from "svelte";
+    import {getContext, onMount} from "svelte";
     import {commas, getHostname} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
     import '$lib/keyvalue.css'
 
     export let data;
 
+    let {setAuthor, rejectAuthor} = getContext("author");
+
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let authorInfoPromise = new Promise(() => {});
 
     onMount(() => {
-        authorInfoPromise = fetch("https://api.spiget.org/v2/authors/" + data.author.id).then(r => r.json());
+        authorInfoPromise = fetch("https://api.spiget.org/v2/authors/" + data.author.id).then(r => r.json())
+
+        authorInfoPromise.then(r => {
+            setAuthor(r)
+        }).catch(e => {
+            rejectAuthor(e);
+        })
     })
 </script>
 <div class="key-values">

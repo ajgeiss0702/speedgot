@@ -4,7 +4,9 @@
 </script>
 <style>
     div {
+        display: inline-block;
         color: gold;
+        margin-top: -20px;
     }
 </style>
 <div title={rating}>
