@@ -52,19 +52,27 @@
         color: #7f7f7f;
         font-weight: normal;
     }
+    .resource-icon {
+        border-radius: 10px;
+    }
     @media (orientation: landscape) {
         a {
             max-width: 60vw;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        .no-icon {
+            background-color: rgba(255, 255, 255, 0.5);
         }
     }
 </style>
 <a href="/resources/{resource.id}">
     <div class="shadowBox header">
         {#if resource.icon && resource.icon.url}
-            <img src={"data:image/png;base64," + resource.icon.data} alt="{resource.name} icon" height="64" width="64">
+            <img src={"data:image/png;base64," + resource.icon.data} class="resource-icon" alt="{resource.name} icon" height="64" width="64">
             <!--<img src={"/proxy/image?url=https://spigotmc.org/" + encodeURIComponent(resource.icon.url)} alt="{resource.name} icon" height="64" width="64">-->
         {:else}
-            <img src="/img/resource_icon.png" alt="{resource.name} icon" height="64" width="64"/>
+            <img src="/img/resource_icon.png" class="resource-icon no-icon" alt="{resource.name} icon" height="64" width="64"/>
         {/if}
         <div class="title-container">
             <h2>

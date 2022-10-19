@@ -8,5 +8,5 @@ export function getHostname(link: string) {
 }
 
 export function decodeBase64Content(d: string) {
-    return atob(d).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")
+    return atob(d).replaceAll("â", "").replaceAll("Â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")
 }
