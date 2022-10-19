@@ -1,10 +1,11 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.min.css';
-    import '$lib/base.css';
+    import '$lib/css/base.css';
     import 'nprogress/nprogress.css';
     import {navigating} from "$app/stores";
     import NProgress from 'nprogress';
-    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "sveltestrap";
+    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Styles} from "sveltestrap";
+    import {onMount} from "svelte";
 
     NProgress.configure({
         // Full list: https://github.com/rstacruz/nprogress#configuration
@@ -21,6 +22,9 @@
     }
 
     let navOpen = false;
+    const toggleNav = () => navOpen = !navOpen;
+
+    $: console.log({ navOpen })
 </script>
 <style>
     div {
@@ -30,8 +34,8 @@
 </style>
 <Navbar color="secondary" warnbing expand="md">
     <NavbarBrand href="/">Speedgot</NavbarBrand>
-    <NavbarToggler on:click={() => (navOpen = !navOpen)} />
-    <Collapse {navOpen} navbar expand="md" on:update={e => navOpen = e.detail.isOpen}>
+    <NavbarToggler on:click={toggleNav} />
+    <Collapse isOpen= {navOpen} navbar expand="md" >
         <Nav class="me-auto" navbar>
             <NavItem>
                 <NavLink href="/resources">Resources</NavLink>

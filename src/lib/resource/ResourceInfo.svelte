@@ -3,7 +3,7 @@
     import {getContext, onMount} from "svelte";
     import {commas, getHostname} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
-    import '$lib/keyvalue.css'
+    import '$lib/css/keyvalue.css'
 
     export let data;
 

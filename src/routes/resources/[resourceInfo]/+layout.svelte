@@ -2,7 +2,7 @@
     <title>{data.name} - Speedgot</title>
 </svelte:head>
 <script>
-    import '$lib/bbStyles.css';
+    import '$lib/css/bbStyles.css';
     import {onMount, setContext} from "svelte";
     import {Button, Icon, Nav, NavItem, NavLink} from "sveltestrap";
     import ResourceInfo from "$lib/resource/ResourceInfo.svelte";

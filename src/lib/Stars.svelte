@@ -1,6 +1,6 @@
 <script>
     export let rating;
-    import "$lib/star.css";
+    import "$lib/css/star.css";
 </script>
 <style>
     div {

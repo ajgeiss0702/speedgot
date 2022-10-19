@@ -37,6 +37,11 @@
             margin-bottom: -0.2em;
         }
     }
+    @media (orientation: portrait) {
+        .container {
+            text-align: center;
+        }
+    }
 </style>
 <div class="container">
     {#if data.icon && data.icon.url}

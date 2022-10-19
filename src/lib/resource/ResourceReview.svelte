@@ -30,6 +30,7 @@
     .icon {
         height: 64px;
         width: 64px;
+        min-width: 64px;
         border-radius: 50%;
         overflow: hidden;
     }
@@ -41,7 +42,6 @@
         font-size: 0.85em;
     }
     .right-part {
-        max-width: 90%;
         margin-left: 0.5em;
     }
     .version {
