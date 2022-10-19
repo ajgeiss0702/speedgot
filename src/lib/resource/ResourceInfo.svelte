@@ -18,7 +18,7 @@
     <span class="key">Author:</span>
     <div class="value">
         {#await authorInfoPromise}
-            <LoadingText/>
+            <LoadingText length={10}/>
         {:then author}
             {author.name}
         {/await}

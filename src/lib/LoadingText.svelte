@@ -1,9 +1,15 @@
 <script>
-    export let length = 10;
-    let add = "";
-    while(length > ("Loading" + add).length) {
+    export let length = 1;
+
+    export let circle = false;
+
+    if(circle) length = 1;
+
+    let add = "-";
+    while(length > add.length) {
         add += "-";
     }
+
 </script>
 <style>
     @keyframes placeHolderShimmer {
@@ -23,9 +29,16 @@
         animation-timing-function: linear;
         background: rgba(0, 0, 0, 0.08) linear-gradient(to right, #eeeeee00 8%, #ffffff5f 18%, #eeeeee00 33%);
         background-size: 800px 104px;
-        height: 70px;
         color: rgba(0, 0, 0, 0);
         position: relative;
+        border-radius: 4px;
+    }
+
+    .circle {
+        border-radius: 50%;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
     }
 </style>
-<span class="animated-background">Loading{add}</span>
+<span class="animated-background" class:circle={circle}>{add}</span>

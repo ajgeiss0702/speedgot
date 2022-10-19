@@ -4,17 +4,26 @@
 <script>
     import '$lib/bbStyles.css';
     import {onMount} from "svelte";
-    import {Button} from "sveltestrap";
+    import {Button, Nav, NavItem, NavLink} from "sveltestrap";
     import ResourceInfo from "$lib/resource/ResourceInfo.svelte";
     import VersionInfo from "$lib/resource/VersionInfo.svelte";
     import ResourceHeader from "$lib/resource/ResourceHeader.svelte";
+    import {page} from "$app/stores";
+    import LoadingText from "$lib/LoadingText.svelte";
 
     export let data;
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let updateCountPromise = new Promise(() => {});
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let reivewCountPromise = new Promise(() => {});
 
     const slug = data.file.url.split("/")[1];
     onMount(() => {
         if(slug.includes(".")) {
-            window.history.replaceState({}, "", "/resources/" + slug);
+            if($page.url.pathname.split("/").length === 3) {
+                window.history.replaceState({}, "", "/resources/" + slug);
+            }
         } else {
             console.warn("Slug (" + slug + ") does not contain a dot! Might be invalid");
         }
@@ -24,6 +33,9 @@
                 spoilerButton.nextElementSibling.classList.toggle("bbCodeSpoilerText");
             }
         }
+
+        updateCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/updates?size=100000&fields=id").then(r => r.json());
+        reivewCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/reviews?size=100000&fields=date").then(r => r.json());
 
         //import bbCodeParser from 'js-bbcode-parser';
         /*let url = "https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=" + data.id;
@@ -101,12 +113,58 @@
             width: 25%
         }
     }
+
+    :global(.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active) {
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 1px solid rgb(247, 247, 247);
+    }
+    @media (prefers-color-scheme: dark) {
+        :global(.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active) {
+            color: white;
+            border-bottom: 1px solid rgb(45, 45, 45);
+        }
+    }
 </style>
 <div class="boxes">
     <div class="leftBox shadowBox">
         <ResourceHeader {data}/>
         <br>
         <br>
+        <Nav tabs>
+            <NavItem>
+                <NavLink href="/resources/{slug}" active={$page.url.pathname.split("/").length === 3}>Overview</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/resources/{slug}/updates" active={$page.url.pathname.endsWith("updates")}>
+                    Updates
+                    {#await updateCountPromise}
+                        (<LoadingText length={2}/>)
+                    {:then updates}
+                        ({updates.length})
+                    {:catch e}
+                            &nbsp;
+                    {/await}
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/resources/{slug}/reviews" active={$page.url.pathname.endsWith("reviews")}>
+                    Reviews
+                    {#await reivewCountPromise}
+                        (<LoadingText length={3}/>)
+                    {:then reviews}
+                        ({reviews.length})
+                    {:catch e}
+                        &nbsp;
+                    {/await}
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/resources/{slug}/history" active={$page.url.pathname.endsWith("history")}>Version History</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href={"https://spigotmc.org/" + data.links.discussion} target="_blank">Discussion</NavLink>
+            </NavItem>
+        </Nav>
         <div class="description">
             <slot/>
         </div>

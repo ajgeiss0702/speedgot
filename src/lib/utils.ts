@@ -6,3 +6,7 @@ export function commas(x: number) {
 export function getHostname(link: string) {
     return new URL(link).hostname;
 }
+
+export function decodeBase64Content(d: string) {
+    return atob(d).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")
+}

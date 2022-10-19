@@ -1,4 +1,6 @@
 <script>
+    import {decodeBase64Content} from "$lib/utils";
+
     export let data;
 </script>
-{@html atob(data.description).replaceAll("â", "").replace(/"\/\/proxy\.spigotmc\.org\/([^\s].*?)\?url=(.*?)"/g, "/proxy/image?url=$2")}
+{@html decodeBase64Content(data.description)}
