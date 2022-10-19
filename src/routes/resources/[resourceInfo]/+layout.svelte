@@ -125,6 +125,11 @@
         div.rightBox {
             width: 25%
         }
+        .sticky-info {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0.5em;
+        }
     }
 
     :global(.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active) {
@@ -183,25 +188,33 @@
         </div>
     </div>
     <div class="rightBox">
-        <div class="innerBox center">
-            <Button small class="innerBox" outline color="warning" href="https://spigotmc.org/resources/{slug}" target="_blank">View on SpigotMC</Button>
-        </div>
-        <div class="innerBox shadowBox center withTitle">
-            <div class="title">
-                Resource Information
+        <div class="sticky-info">
+            <div class="innerBox center">
+                <Button small class="innerBox" outline color="warning" href="https://spigotmc.org/resources/{slug}" target="_blank">View on SpigotMC</Button>
             </div>
-            <div class="content left-text">
-                <ResourceInfo {data}/>
+            <div class="innerBox shadowBox center withTitle">
+                <div class="title">
+                    Resource Information
+                </div>
+                <div class="content left-text">
+                    <ResourceInfo {data}/>
+                </div>
             </div>
-        </div>
 
-        <div class="innerBox shadowBox center withTitle">
-            <div class="title">
-                Version {data.latestResourceVersion.name}
+            <div class="innerBox shadowBox center withTitle">
+                <div class="title">
+                    Version {data.latestResourceVersion.name}
+                </div>
+                <div class="content left-text">
+                    <VersionInfo {data}/>
+                </div>
             </div>
-            <div class="content left-text">
-                <VersionInfo {data}/>
-            </div>
+
+            {#if data.links.alternativeSupport}
+                <div class="innerBox center">
+                    <Button small class="innerBox" outline color="info" href="{data.links.alternativeSupport}" target="_blank">Ask Questions / Get Support</Button>
+                </div>
+            {/if}
         </div>
     </div>
 </div>
