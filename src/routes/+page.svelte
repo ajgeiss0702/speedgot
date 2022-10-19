@@ -7,7 +7,9 @@
 <h1>Welcome!</h1>
 <br>
 
-Do the thing and be cool and stuff
+This website was made in order to not have to deal with the annoying "Checking your browser" message that spigot has on.<br>
+<br>
+Most data is fetched using SpiGet, so it might be a few minutes behind.
 <br>
 <br>
 <br>
