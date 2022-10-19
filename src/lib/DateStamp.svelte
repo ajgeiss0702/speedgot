@@ -1,7 +1,10 @@
 <script>
     import {onDestroy, onMount} from "svelte";
+    import {shortMonths, dateString} from "$lib/utils";
 
     export let epochSeconds;
+
+    let date = new Date(epochSeconds * 1000);
 
     let secondsAgo;
     function updateSecondsAgo() {
@@ -11,17 +14,27 @@
 
     let updateInterval;
     onMount(() => {
-        updateInterval = setInterval(() => {
-            updateSecondsAgo();
-        }, 15e3);
+        updateSecondsAgo();
+        if(secondsAgo < 60 * 60) {
+            updateInterval = setInterval(() => {
+                updateSecondsAgo();
+            }, 15e3);
+        }
     });
 
     onDestroy(() => {
         clearInterval(updateInterval);
     })
 </script>
-{#if secondsAgo < 60 * 60}
-    {secondsAgo / 60} mins ago
-{:else}
-    {new Date(epochSeconds * 1000)}
-{/if}
+<style>
+    div {
+        style: inline-block;
+    }
+</style>
+<div title="{shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()} at {dateString(date, false)}">
+    {#if secondsAgo < 60 * 60}
+        {Math.round(secondsAgo / 60)} mins ago
+    {:else}
+        {shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()}
+    {/if}
+</div>

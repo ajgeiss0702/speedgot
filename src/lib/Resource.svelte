@@ -3,6 +3,7 @@
     import {Icon} from "sveltestrap";
 
     import 'bootstrap-icons/font/bootstrap-icons.css';
+    import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
 
     export let resource;
 </script>
@@ -68,12 +69,7 @@
 </style>
 <a href="/resources/{resource.id}">
     <div class="shadowBox header">
-        {#if resource.icon && resource.icon.url}
-            <img src={"data:image/png;base64," + resource.icon.data} class="resource-icon" alt="{resource.name} icon" height="64" width="64">
-            <!--<img src={"/proxy/image?url=https://spigotmc.org/" + encodeURIComponent(resource.icon.url)} alt="{resource.name} icon" height="64" width="64">-->
-        {:else}
-            <img src="/img/resource_icon.png" class="resource-icon no-icon" alt="{resource.name} icon" height="64" width="64"/>
-        {/if}
+        <ResourceIcon {resource}/>
         <div class="title-container">
             <h2>
             <span class="title-overflow-prevention">

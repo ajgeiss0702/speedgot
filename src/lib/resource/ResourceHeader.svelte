@@ -1,5 +1,6 @@
 <script>
     import DownloadButton from "$lib/resource/DownloadButton.svelte";
+    import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
 
     export let data;
 </script>
@@ -42,13 +43,10 @@
             text-align: center;
         }
     }
+
 </style>
 <div class="container">
-    {#if data.icon && data.icon.url}
-        <img src={"data:image/png;base64," + data.icon.data} alt="{data.name} icon" height="64" width="64">
-    {:else}
-        <img src="/img/resource_icon.png" alt="{data.name} icon" height="64" width="64"/>
-    {/if}
+    <ResourceIcon resource={data}/>
     <div class="title-container">
         <h2>
         <span class="title-overflow-prevention text-truncate">

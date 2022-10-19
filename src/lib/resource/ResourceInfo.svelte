@@ -4,6 +4,8 @@
     import {commas, getHostname} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
     import '$lib/css/keyvalue.css'
+    import DateStamp from "$lib/DateStamp.svelte";
+    import CategoryName from "$lib/CategoryName.svelte";
 
     export let data;
 
@@ -39,15 +41,15 @@
 </div>
 <div class="key-values">
     <span class="key">First Release:</span>
-    <span class="value">{data.releaseDate}</span>
+    <span class="value"><DateStamp epochSeconds={data.releaseDate}/></span>
 </div>
 <div class="key-values">
     <span class="key">Last Update:</span>
-    <span class="value">{data.updateDate}</span>
+    <span class="value"><DateStamp epochSeconds={data.updateDate}/></span>
 </div>
 <div class="key-values">
     <span class="key">Category:</span>
-    <span class="value">{data.category}</span>
+    <span class="value"><CategoryName id={data.category.id}/></span>
 </div>
 <div class="key-values">
     <span class="key">All-Time Rating:</span>

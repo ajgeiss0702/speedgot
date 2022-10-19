@@ -5,6 +5,7 @@
     import {getContext, onMount} from "svelte";
     import LazyLoad from "@dimfeld/svelte-lazyload";
     import AuthorIcon from "$lib/author/AuthorIcon.svelte";
+    import DateStamp from "$lib/DateStamp.svelte";
 
     export let review;
 
@@ -50,6 +51,10 @@
     .icon {
         margin-bottom: auto;
     }
+    .date {
+        color: var(--bs-secondary);
+        font-size: 0.75em;
+    }
 </style>
 <LazyLoad height="0" on:visible={fetchAuthorDetails}/>
 <div class="container">
@@ -75,6 +80,9 @@
         <br>
         <div class="bb-content message">
             {@html decodeBase64Content(review.message)}
+        </div>
+        <div class="date">
+            <DateStamp epochSeconds={review.date}/>
         </div>
         {#if review.responseMessage}
             <br>
