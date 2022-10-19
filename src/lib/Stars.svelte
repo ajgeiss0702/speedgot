@@ -2,11 +2,11 @@
     export let rating = 5;
     import "$lib/css/star.css";
 
-    let one = rating >= 1 ? "" : css(rating);
-    let two = rating >= 2 || rating < 1 ? "" : css(rating - 1);
-    let three = rating >= 3 || rating < 2 ? "" : css(rating - 2);
-    let four = rating >= 4 || rating < 3 ? "" : css(rating - 3);
-    let five = rating >= 5 || rating < 4 ? "" : css(rating - 4);
+    let one = rating >= 1 || rating === 0 ? "" : css(rating);
+    let two = rating >= 2 || rating <= 1 ? "" : css(rating - 1);
+    let three = rating >= 3 || rating <= 2 ? "" : css(rating - 2);
+    let four = rating >= 4 || rating <= 3 ? "" : css(rating - 3);
+    let five = rating >= 5 || rating <= 4 ? "" : css(rating - 4);
 
     function css(rating) {
         rating = Math.round(rating * 1000) / 1000;
