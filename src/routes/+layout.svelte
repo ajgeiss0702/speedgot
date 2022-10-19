@@ -39,6 +39,9 @@
             <NavItem>
                 <NavLink href="/resources">Resources</NavLink>
             </NavItem>
+            <NavItem>
+                <NavLink href="/resources/search">Search</NavLink>
+            </NavItem>
         </Nav>
     </Collapse>
 </Navbar>
