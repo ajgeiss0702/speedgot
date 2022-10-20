@@ -54,7 +54,7 @@
 <div class="key-values">
     <span class="key">All-Time Rating:</span>
     <div class="value">
-        <Stars rating={data.rating.average}/>
+        <Stars rating={data.rating.average} size="1.5em"/>
         <div>{data.rating.count} ratings</div>
     </div>
 </div>

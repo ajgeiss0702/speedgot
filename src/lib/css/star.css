@@ -1,8 +1,11 @@
 .star {
-    font-size: x-large;
+    position: relative;
+    font-size: 1.25em;
     display: inline-block;
-    width: 1.5ex;
+    width: 0.75em;
     color: gray;
+    margin-top: -0.5em;
+    margin-bottom: -1em;
 }
 .star:last-child {
     margin-right: 0;
@@ -26,7 +29,8 @@
     color: gold;
     position: absolute;
     overflow: hidden;
-    margin-left: calc(var(--star-percent) - ((1ex - var(--star-percent) * -0.5) * 1.75));
+    left: 0;
+    top: 0;
     width: calc(var(--star-percent) + 0.333ex);
 
 }

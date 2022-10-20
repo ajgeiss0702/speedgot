@@ -1,5 +1,6 @@
 <script>
     export let rating = 5;
+    export let size = "1em";
     import "$lib/css/star.css";
 
     let one = rating >= 1 || rating === 0 ? "" : css(rating);
@@ -19,11 +20,10 @@
     div {
         display: inline-block;
         color: gold;
-        margin-top: -20px;
         min-width: 13ex;
     }
 </style>
-<div title={rating}>
+<div title={rating} style="font-size: {size};">
     <span class="star" class:custom={one} class:full={rating >= 1} style={one}></span>
     <span class="star" class:custom={two} class:full={rating >= 2} style={two}></span>
     <span class="star" class:custom={three} class:full={rating >= 3} style={three}></span>

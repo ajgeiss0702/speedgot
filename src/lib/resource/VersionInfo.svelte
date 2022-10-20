@@ -17,7 +17,7 @@
 <div class="key-values">
     <span class="key">Version Rating:</span>
     <div class="value">
-        <Stars rating={data.latestResourceVersion.rating.average}/>
+        <Stars rating={data.latestResourceVersion.rating.average} size="1.5em"/>
         <div>{data.latestResourceVersion.rating.count} ratings</div>
     </div>
 </div>
