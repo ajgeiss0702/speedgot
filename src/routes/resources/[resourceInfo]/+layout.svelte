@@ -152,6 +152,11 @@
             <NavItem>
                 <NavLink href="/resources/{slug}" active={$page.url.pathname.split("/").length === 3}>Overview</NavLink>
             </NavItem>
+            {#if data.documentation}
+                <NavItem>
+                    <NavLink href="/resources/{slug}/documentation" active={$page.url.pathname.endsWith("documentation")}>Documentation</NavLink>
+                </NavItem>
+            {/if}
             <NavItem>
                 <NavLink href="/resources/{slug}/updates" active={$page.url.pathname.endsWith("updates")}>
                     Updates
