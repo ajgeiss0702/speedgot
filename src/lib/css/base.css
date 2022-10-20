@@ -52,3 +52,12 @@
 .small-text {
     font-size: 0.8em;
 }
+
+.navbar-brand {
+    --bs-navbar-brand-color: var(--bs-warning) !important;
+    --bs-navbar-brand-hover-color: rgba(var(--bs-warning-rgb), 0.8)
+}
+
+.nav-link {
+    --bs-nav-link-color: rgb(255, 255, 255);
+}

@@ -31,7 +31,7 @@
         margin-top: 1em;
     }
 </style>
-<Navbar color="secondary" warnbing expand="md">
+<Navbar color="secondary" expand="md">
     <NavbarBrand href="/">Speedgot</NavbarBrand>
     <NavbarToggler on:click={toggleNav} />
     <Collapse isOpen= {navOpen} navbar expand="md" >
