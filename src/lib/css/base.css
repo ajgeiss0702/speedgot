@@ -5,6 +5,13 @@
     border-radius: 12px;
 }
 
+.navbar .nav-link {
+    --bs-nav-link-color: rgb(255, 255, 255);
+}
+.nav-tabs .nav-link {
+    --bs-nav-link-color: rgb(0, 0, 0);
+}
+
 @media (prefers-color-scheme: dark) {
     body, html {
         background-color: #262626;
@@ -17,6 +24,9 @@
 
     .table {
         color: white;
+    }
+    .nav-tabs .nav-link {
+        --bs-nav-link-color: rgb(255, 255, 255);
     }
 }
 
@@ -60,8 +70,4 @@
 .navbar-brand {
     --bs-navbar-brand-color: var(--bs-warning) !important;
     --bs-navbar-brand-hover-color: rgba(var(--bs-warning-rgb), 0.8)
-}
-
-.nav-link {
-    --bs-nav-link-color: rgb(255, 255, 255);
 }
