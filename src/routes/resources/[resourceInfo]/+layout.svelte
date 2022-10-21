@@ -13,6 +13,8 @@
 
     export let data;
 
+    setContext("resourceId", data.id);
+
     let setAuthor = () => {console.warn("premature setAuthor!")};
     let rejectAuthor = () => {console.warn("premature rejectAuthor!")};
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -49,22 +51,6 @@
 
         updateCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/updates?size=100000&fields=id").then(r => r.json());
         reivewCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/reviews?size=100000&fields=date").then(r => r.json());
-
-        //import bbCodeParser from 'js-bbcode-parser';
-        /*let url = "https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=" + data.id;
-        console.log(url)
-        fetch("/proxy/image?url=" + encodeURIComponent(url))
-            .then(r => r.json())
-            .then(resource => {
-                if(!resource.description) {
-                    console.dir(resource);
-                    throw new Error("No description from spigot api response!");
-                }
-                description = bbCodeParser.parse(resource.description);
-            })
-            .catch(e => {
-                console.error(e);
-            })*/
 
     });
 </script>
@@ -158,7 +144,7 @@
                 </NavItem>
             {/if}
             <NavItem>
-                <NavLink href="/resources/{slug}/updates" active={$page.url.pathname.endsWith("updates")}>
+                <NavLink href="/resources/{slug}/updates" active={$page.url.pathname.endsWith("updates") || ($page.url.pathname.includes("updates") && $page.params.updateId)}>
                     Updates
                     {#await updateCountPromise}
                         (<LoadingText length={2}/>)
