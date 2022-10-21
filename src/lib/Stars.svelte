@@ -3,6 +3,8 @@
     export let size = "1em";
     import "$lib/css/star.css";
 
+    rating = Math.round(rating * 1000) / 1000;
+
     let one = rating >= 1 || rating === 0 ? "" : css(rating);
     let two = rating >= 2 || rating <= 1 ? "" : css(rating - 1);
     let three = rating >= 3 || rating <= 2 ? "" : css(rating - 2);
@@ -10,7 +12,6 @@
     let five = rating >= 5 || rating <= 4 ? "" : css(rating - 4);
 
     function css(rating) {
-        rating = Math.round(rating * 1000) / 1000;
         return "--star-percent: " + rating + "ex"
         /*return "margin-left: calc(-" + rating + "ex + -1.13ex); " +
             "width: calc(" + rating + "ex + 0.333ex);"*/
