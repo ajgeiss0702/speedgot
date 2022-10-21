@@ -24,8 +24,10 @@
     });
 
     onDestroy(() => {
-        document.body.removeEventListener("keydown", keyDown)
-        document.body.removeEventListener("keyup", keyUp)
+        if(typeof document !== "undefined") {
+            document.body.removeEventListener("keydown", keyDown)
+            document.body.removeEventListener("keyup", keyUp)
+        }
     })
 </script>
 <style>
