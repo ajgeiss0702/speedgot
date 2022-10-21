@@ -117,17 +117,6 @@
             top: 0.5em;
         }
     }
-
-    :global(.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active) {
-        background-color: rgba(0, 0, 0, 0);
-        border-bottom: 1px solid rgb(247, 247, 247);
-    }
-    @media (prefers-color-scheme: dark) {
-        :global(.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active) {
-            color: white;
-            border-bottom: 1px solid rgb(45, 45, 45);
-        }
-    }
 </style>
 <div class="boxes">
     <div class="leftBox shadowBox">

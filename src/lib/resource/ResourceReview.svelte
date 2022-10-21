@@ -9,17 +9,34 @@
 
     export let review;
 
-    export let resource;
+    export let userLink = true;
 
-    let resourceAuthor = getContext("author").getAuthor();
-
-    let i;
+    export let resourceName = false;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let authorDetails = new Promise(() => {});
+    let resource = new Promise(() => {});
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let resourceAuthor = getContext("author") ? getContext("author").getAuthor() : false;
+
+
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let userDetails = getContext("user") ? getContext("user").getUser() : false;
+
+    function fetchUserDetails() {
+        if(userDetails) return;
+        userDetails = fetch("https://api.spiget.org/v2/authors/" + review.author.id).then(r => r.json());
+    }
 
     function fetchAuthorDetails() {
-        authorDetails = fetch("https://api.spiget.org/v2/authors/" + review.author.id).then(r => r.json());
+        if(resourceAuthor) return;
+        resourceAuthor = fetch("https://api.spiget.org/v2/resources/" + review.resource + "/author").then(r => r.json());
+    }
+
+    function fetchResourceName() {
+        if(!resourceName) return;
+        resource = fetch("https://api.spiget.org/v2/resources/" + review.resource + "?fields=name").then(r => r.json())
     }
 
 </script>
@@ -55,23 +72,67 @@
         color: var(--bs-secondary);
         font-size: 0.75em;
     }
+    .date > a:hover {
+        text-decoration: underline;
+    }
+    .resource-name {
+        font-size: 0.75em;
+    }
+    .author-response {
+        margin-top: 0.75em;
+    }
 </style>
-<LazyLoad height="0" on:visible={fetchAuthorDetails}/>
-<div class="container">
+<LazyLoad height="0" on:visible={fetchUserDetails}/>
+<div class="container" id="review-{review.id}">
     <div class="icon">
-        {#await authorDetails}
-            <LoadingText circle/>
-        {:then author}
-            <AuthorIcon {author}/>
-        {/await}
+        {#if userDetails}
+            {#await userDetails}
+                <LoadingText circle/>
+            {:then author}
+                <AuthorIcon {author}/>
+            {/await}
+        {:else}
+            <LazyLoad on:visible={fetchUserDetails}/>
+        {/if}
     </div>
     <div class="right-part">
+        {#if resourceName}
+            <div class="resource-name">
+                For
+                {#if review.resource}
+                    {#await resource}
+                        <LoadingText length={25}/>
+                    {:then resource}
+                        {#if resource && resource.name}
+                            <a href="/resources/{resource.id}">
+                                {resource.name}
+                            </a>
+                        {:else}
+                            [deleted]
+                        {/if}
+                    {:catch e}
+                        [unknown - error]
+                    {/await}
+                    <LazyLoad on:visible={fetchResourceName}/>
+                {:else}
+                    [deleted]
+                {/if}
+            </div>
+        {/if}
         <h5>
-            {#await authorDetails}
-                <LoadingText length={10}/>
-            {:then author}
-                {author.name}
-            {/await}
+            {#if userDetails}
+                {#await userDetails}
+                    <LoadingText length={10}/>
+                {:then author}
+                    {#if userLink}
+                        <a class="stealthLink" href="/users/{author.id}">
+                            {author.name}
+                        </a>
+                    {:else}
+                        {author.name}
+                    {/if}
+                {/await}
+            {/if}
         </h5>
         <Stars rating={review.rating.average}/>
         <span class="version text-secondary">
@@ -82,17 +143,28 @@
             {@html decodeBase64Content(review.message)}
         </div>
         <div class="date">
-            <DateStamp epochSeconds={review.date}/>
+            {#if review.resource}
+                <a class="stealthLink" href="/resources/{review.resource}/reviews#review-{review.id}">
+                    <DateStamp epochSeconds={review.date}/>
+                </a>
+            {:else}
+                <DateStamp epochSeconds={review.date}/>
+            {/if}
         </div>
         {#if review.responseMessage}
-            <br>
-            <div class="container">
+            <div class="container author-response">
                 <div class="icon">
-                    {#await resourceAuthor}
-                        <LoadingText circle/>
-                    {:then author}
-                        <AuthorIcon {author}/>
-                    {/await}
+                    {#if resourceAuthor}
+                        {#await resourceAuthor}
+                            <LoadingText circle/>
+                        {:then author}
+                            <AuthorIcon {author}/>
+                        {:catch e}
+                            <AuthorIcon author={null}/>
+                        {/await}
+                    {:else}
+                        <LazyLoad on:visible={fetchAuthorDetails}/>
+                    {/if}
                 </div>
                 <div class="right-part">
                     <span class="author-response-header text-secondary">

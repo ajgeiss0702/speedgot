@@ -31,7 +31,9 @@
         {#await authorInfoPromise}
             <LoadingText length={10}/>
         {:then author}
-            {author.name}
+            <a class="stealthLink" href="/users/{author.id}">
+                {author.name}
+            </a>
         {/await}
     </div>
 </div>
