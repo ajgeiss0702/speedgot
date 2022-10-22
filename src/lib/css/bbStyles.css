@@ -65,6 +65,40 @@
 
     border: 1px rgba(0, 0, 0, 0) solid;
 
-    color: rgb(0, 0, 0, 0) !important;
+    padding-top: 0;
+    padding-bottom: 0;
 
+    color: rgb(0, 0, 0, 0) !important;
+}
+.bbCodeSpoilerText > * {
+    transition: all 0.5s;
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: rgb(0, 0, 0, 0) !important;
+}
+
+
+.bbCodeBlock {
+    border: 1px lightgray solid;
+    border-radius: 5px;
+    margin: 0.5em;
+}
+.bbCodeBlock > .type {
+    background-color: lightgray;
+    padding: 0.25em;
+}
+.bbCodeBlock > .code {
+    padding: 0.25em;
+    max-height: 50vh;
+    overflow: scroll;
+    white-space: nowrap;
+    font-family: Consolas,courier new,Courier,monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bbCodeBlock {
+        border-color: gray;
+    }
+    .bbCodeBlock > .type {
+        background-color: gray;
+    }
 }
