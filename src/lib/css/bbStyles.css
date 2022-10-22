@@ -21,15 +21,50 @@
     -webkit-appearance: none;
     font-weight: 600;
     height: 36px;
+    margin: 0.5em;
+
+    position: relative;
+    z-index: 50;
 }
 .bbCodeSpoilerButton:hover {
     background-color: #ed8106;
     color: white;
 }
-.bbCodeSpoilerText {
-    display: none;
-}
 
 .bb-content img {
     max-width: 100%;
+}
+
+.bbCodeSpoilerContainer {
+    overflow: hidden;
+    display: block;
+    min-height: 3em;
+}
+
+.SpoilerTarget {
+
+    margin-top: 0;
+
+    max-height: 99vh;
+    overflow-y: scroll;
+
+
+    border: 1px gray solid;
+    padding: 0.25em;
+
+    transition: all 0.5s;
+
+    z-index: 1;
+}
+
+.bbCodeSpoilerText {
+    /*transform: translateY(calc(-100% - 3em)) scaleY(0);*/
+    max-height: 0;
+
+    overflow-y: hidden;
+
+    border: 1px rgba(0, 0, 0, 0) solid;
+
+    color: rgb(0, 0, 0, 0) !important;
+
 }

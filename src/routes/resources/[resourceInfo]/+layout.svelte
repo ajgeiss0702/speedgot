@@ -103,6 +103,8 @@
             width: 1200px;
             display: flex;
             align-items: stretch;
+
+            margin-bottom: 20em;
         }
         div.leftBox {
             width: 75%;
