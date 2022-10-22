@@ -52,7 +52,9 @@
     {#await authorPromise}
         <LoadingText length={10}/>,
     {:then author}
-        {author.name},
+        <a href="/users/{author.id}" class="stealthLink">{author.name}</a>,
     {/await}
-    <DateStamp epochSeconds={update.date}/>
+    <a class="stealthLink" href="/resources/{update.resource}/updates/{update.id}">
+        <DateStamp epochSeconds={update.date}/>
+    </a>
 </div>
