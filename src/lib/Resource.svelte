@@ -35,7 +35,11 @@
         text-align: right;
     }
     .title-container {
-        max-width: 77%;
+        max-width: 70%;
+    }
+    .tag {
+        display: inline-block;
+        max-width: 100%;
     }
     .title-overflow-prevention {
         display: inline-block;
@@ -60,9 +64,22 @@
             max-width: 60vw;
         }
     }
+
+    @media (max-width: 1200px) {
+        a {
+            max-width: 80vw;
+        }
+    }
+
     @media (orientation: portrait) {
+        a {
+            max-width: 90vw;
+        }
         .right {
             display: none;
+        }
+        .title-container {
+            max-width: 90%;
         }
     }
 </style>
@@ -79,8 +96,8 @@
                 </span>
             </h2>
             <span class="tag">
-            {resource.tag}
-        </span>
+                {resource.tag}
+            </span>
         </div>
         <br>
         <div class="right">

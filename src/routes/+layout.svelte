@@ -33,7 +33,7 @@
 </style>
 <Navbar color="secondary" expand="md">
     <NavbarBrand href="/">Speedgot</NavbarBrand>
-    <NavbarToggler on:click={toggleNav} />
+    <NavbarToggler on:click={toggleNav} aria-label="Expand navbar"/>
     <Collapse isOpen= {navOpen} navbar expand="md" >
         <Nav class="me-auto" navbar>
             <NavItem>
