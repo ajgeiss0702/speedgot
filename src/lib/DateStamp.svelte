@@ -30,12 +30,7 @@
         clearInterval(updateInterval);
     })
 </script>
-<style>
-    div {
-        display: inline-block;
-    }
-</style>
-<div title="{shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()} at {dateString(date, false)}">
+<span title="{shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()} at {dateString(date, false)}">
     {#if secondsAgo < 60 * 60}
         {Math.round(secondsAgo / 60)} mins ago
     {:else if isSameDay(new Date(), date)}
@@ -45,4 +40,4 @@
     {:else}
         {shortMonths[date.getMonth()]} {date.getDate()}, {date.getFullYear()}
     {/if}
-</div>
+</span>
