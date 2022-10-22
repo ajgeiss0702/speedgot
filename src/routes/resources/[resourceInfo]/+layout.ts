@@ -37,10 +37,5 @@ export async function load({fetch, params}) {
         throw error(resourceInfoResponse.status, errorText);
     }
 
-    const latestResourceVersion = await (fetch("https://api.spiget.org/v2/resources/" + resourceId + "/versions/latest").then((response: Response) => response.json()));
-
-    return {
-        ...resourceInfo,
-        latestResourceVersion
-    };
+    return resourceInfo;
 }

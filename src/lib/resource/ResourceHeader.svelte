@@ -1,8 +1,12 @@
 <script>
     import DownloadButton from "$lib/resource/DownloadButton.svelte";
     import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
+    import {getContext} from "svelte";
+    import LoadingText from "$lib/LoadingText.svelte";
 
     export let data;
+
+    let latestVersion = getContext("latestVersion");
 </script>
 <style>
     .container {
@@ -49,16 +53,20 @@
     <ResourceIcon resource={data}/>
     <div class="title-container">
         <h2>
-        <span class="title-overflow-prevention text-truncate" title={data.name}>
-            {data.name}
-        </span>
+            <span class="title-overflow-prevention text-truncate" title={data.name}>
+                {data.name}
+            </span>
             <span class="latest-version">
-            {data.latestResourceVersion.name}
-        </span>
+                {#await latestVersion}
+                    <LoadingText length={5}/>
+                {:then version}
+                    {version.name}
+                {/await}
+            </span>
         </h2>
         <span class="tag">
-        {data.tag}
-    </span>
+            {data.tag}
+        </span>
     </div>
     <br>
     <div class="right">

@@ -28,6 +28,14 @@
         rejectAuthor: e => rejectAuthor(e)
     });
 
+    let setLatestVersion = () => {console.warn("premature setLatestVersion!")};
+    let rejectLatestVersion = () => {console.warn("premature rejectLatestVersion!")};
+    let latestResourceVersion = new Promise((resolve, reject) => {
+        setLatestVersion = resolve;
+        rejectAuthor = reject;
+    })
+    setContext("latestVersion", latestResourceVersion);
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let updateCountPromise = new Promise(() => {});
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -51,6 +59,11 @@
 
         updateCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/updates?size=100000&fields=id").then(r => r.json());
         reivewCountPromise = fetch("https://api.spiget.org/v2/resources/" + data.id + "/reviews?size=100000&fields=date").then(r => r.json());
+
+        fetch("https://api.spiget.org/v2/resources/" + data.id + "/versions/latest")
+            .then((response) => response.json())
+            .then(setLatestVersion)
+            .catch(rejectLatestVersion);
 
     });
 </script>
@@ -185,7 +198,12 @@
 
             <div class="innerBox shadowBox center withTitle">
                 <div class="title">
-                    Version {data.latestResourceVersion.name}
+                    Version
+                    {#await latestResourceVersion}
+                        <LoadingText length={5}/>
+                    {:then version}
+                        {version.name}
+                    {/await}
                 </div>
                 <div class="content left-text">
                     <VersionInfo {data}/>
