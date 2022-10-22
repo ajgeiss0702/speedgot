@@ -23,6 +23,8 @@ export function decodeBase64Content(d: string) {
             allowedIframeDomains: ['youtube.com']
         }
     )
+        .replaceAll(/style="color:#000000"/g, "style=\"color: inherit\"")
+        .replaceAll(/style="color:rgb\(0, 0, 0\)/g, "style=\"color: inherit\"")
 }
 
 function decodeUnicode(str: string): string {
