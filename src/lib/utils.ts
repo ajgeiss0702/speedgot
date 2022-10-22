@@ -17,14 +17,15 @@ export function decodeBase64Content(d: string) {
             allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'iframe', 'button', 'span' ]),
             allowedAttributes: {
                 ...sanitizeHtml.defaults.allowedAttributes,
-                "*": ['style', 'class'],
+                "*": ['style', 'class', 'data-url'],
                 'iframe': ['src', 'allowfullscreen', 'width', 'height', 'frameborder'],
             },
-            allowedIframeDomains: ['youtube.com']
+            allowedIframeDomains: ['youtube.com', 'youtube-noccokie.com']
         }
     )
         .replaceAll(/style="color:#000000"/g, "style=\"color: inherit\"")
         .replaceAll(/style="color:rgb\(0, 0, 0\)/g, "style=\"color: inherit\"")
+        .replaceAll(/https:\/\/www.youtube.com\/embed\//g, "https://www.youtube-nocookie.com/embed/")
 }
 
 function decodeUnicode(str: string): string {
