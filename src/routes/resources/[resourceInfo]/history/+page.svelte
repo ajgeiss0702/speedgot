@@ -9,6 +9,18 @@
     th.download {
         color: rgba(0, 0, 0, 0);
     }
+
+    @media (orientation: portrait) {
+        .downloads {
+            display: none;
+        }
+        .rating {
+            display: none;
+        }
+        .download {
+            text-align: right;
+        }
+    }
 </style>
 <table class="table">
     <tbody>
