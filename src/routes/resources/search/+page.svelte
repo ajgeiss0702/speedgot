@@ -7,7 +7,7 @@
     import {page} from "$app/stores";
     import {onMount} from "svelte";
 
-    let query = $page.url.searchParams.get("q");
+    let query;
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let results = new Promise(() => {});
 
@@ -38,6 +38,7 @@
     }
 
     onMount(() => {
+        $page.url.searchParams.get("q")
         if(query) {
             search();
         }
