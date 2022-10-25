@@ -38,7 +38,7 @@
     }
 
     onMount(() => {
-        $page.url.searchParams.get("q")
+        query = $page.url.searchParams.get("q")
         if(query) {
             search();
         }
