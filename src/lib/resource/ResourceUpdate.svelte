@@ -18,7 +18,7 @@
 
     .description {
         padding-bottom: 0.5em;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .limited {
