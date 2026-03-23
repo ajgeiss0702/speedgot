@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
     import {decodeBase64Content} from "$lib/utils";
     import {getContext} from "svelte";
     import {error} from "@sveltejs/kit";
     import ResourceUpdate from "$lib/resource/ResourceUpdate.svelte";
 
-    export let data;
+    let { data } = $props();
 
     // for some reason, spiget can return updates from other plugins,
     // so we need to check that the resulting update is from the correct plugin

@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import ResourceReview from "$lib/resource/ResourceReview.svelte";
 
-    export let data;
+    let { data } = $props();
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     const emptyPromise = new Promise(() => {})

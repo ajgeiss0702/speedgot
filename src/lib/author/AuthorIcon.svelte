@@ -1,5 +1,5 @@
-<script>
-    export let author;
+<script lang="ts">
+    let { author } = $props();
 
     let safeName = author ? author.name : "[unknown]"
 </script>

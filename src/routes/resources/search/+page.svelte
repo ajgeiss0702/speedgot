@@ -2,19 +2,23 @@
     <title>Resource Search - Speedgot</title>
 </svelte:head>
 <script>
+    import { run } from 'svelte/legacy';
+
     import Resource from "$lib/Resource.svelte";
-    import {Input} from "sveltestrap";
+    import {Input} from "@sveltestrap/sveltestrap";
     import {page} from "$app/stores";
     import {onMount} from "svelte";
 
-    let query;
+    let query = $state();
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let results = new Promise(() => {});
+    let results = $state(new Promise(() => {}));
 
-    $: if(!query) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        results = new Promise(() => {});
-    }
+    run(() => {
+        if(!query) {
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            results = new Promise(() => {});
+        }
+    });
 
     let timeout;
 

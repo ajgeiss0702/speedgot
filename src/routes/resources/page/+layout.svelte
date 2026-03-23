@@ -1,13 +1,22 @@
-<script>
+<script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import { page } from '$app/stores';
     import Paginator from "$lib/Paginator.svelte";
-    import {Input, Label} from "sveltestrap";
+    import {Input, Label} from "@sveltestrap/sveltestrap";
     import {goto} from "$app/navigation";
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
 
-    let pageNumber = Number($page.params.page);
-    $: pageNumber = Number($page.params.page);
+    let { children }: Props = $props();
 
-    let sort = $page.url.searchParams.get("sort") || "updateDate";
+    let pageNumber = $state(Number($page.params.page));
+    run(() => {
+        pageNumber = Number($page.params.page);
+    });
+
+    let sort = $state($page.url.searchParams.get("sort") || "updateDate");
 </script>
 <style>
     .paginator-wrapper {
@@ -45,7 +54,7 @@
         {/if}
     </div>
 {/if}
-<slot/>
+{@render children?.()}
 {#if !isNaN(pageNumber)}
 
     <div class="paginator-wrapper">

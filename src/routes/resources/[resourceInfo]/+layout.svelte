@@ -1,17 +1,17 @@
 <svelte:head>
     <title>{data.name} - Speedgot</title>
 </svelte:head>
-<script>
+<script lang="ts">
     import '$lib/css/bbStyles.css';
     import {onMount, setContext} from "svelte";
-    import {Button, Icon, Nav, NavItem, NavLink} from "sveltestrap";
+    import {Button, Icon, Nav, NavItem, NavLink} from "@sveltestrap/sveltestrap";
     import ResourceInfo from "$lib/resource/ResourceInfo.svelte";
     import VersionInfo from "$lib/resource/VersionInfo.svelte";
     import ResourceHeader from "$lib/resource/ResourceHeader.svelte";
     import {page} from "$app/stores";
     import LoadingText from "$lib/LoadingText.svelte";
 
-    export let data;
+    let { data, children } = $props();
 
     setContext("resourceId", data.id);
 
@@ -37,9 +37,9 @@
     setContext("latestVersion", latestResourceVersion);
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let updateCountPromise = new Promise(() => {});
+    let updateCountPromise = $state(new Promise(() => {}));
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let reivewCountPromise = new Promise(() => {});
+    let reivewCountPromise = $state(new Promise(() => {}));
 
     const slug = data.file.url.split("/")[1];
     onMount(() => {
@@ -179,7 +179,7 @@
             </NavItem>
         </Nav>
         <div class="description">
-            <slot/>
+            {@render children?.()}
         </div>
     </div>
     <div class="rightBox">

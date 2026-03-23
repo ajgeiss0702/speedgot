@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import ResourceUpdate from "$lib/resource/ResourceUpdate.svelte";
 
-    export let data;
+    let { data } = $props();
 </script>
 <style>
     .container {

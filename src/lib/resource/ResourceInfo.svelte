@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import LoadingText from "$lib/LoadingText.svelte";
     import {getContext, onMount} from "svelte";
     import {commas, getHostname} from "$lib/utils";
@@ -7,13 +7,13 @@
     import DateStamp from "$lib/DateStamp.svelte";
     import CategoryName from "$lib/CategoryName.svelte";
 
-    export let data;
+    let { data } = $props();
 
     let {setAuthor, rejectAuthor} = getContext("author");
 
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let authorInfoPromise = new Promise(() => {});
+    let authorInfoPromise = $state(new Promise(() => {}));
 
     onMount(() => {
         authorInfoPromise = fetch("https://api.spiget.org/v2/authors/" + data.author.id).then(r => r.json())

@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import 'bootstrap/dist/css/bootstrap.min.css';
     import 'bootstrap-icons/font/bootstrap-icons.css';
     import '$lib/css/base.css';
@@ -6,23 +8,28 @@
     import {navigating} from "$app/stores";
     import NProgress from 'nprogress';
     import "$lib/css/nprogress-overrides.css";
-    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "sveltestrap";
+    import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "@sveltestrap/sveltestrap";
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
+
+    let { children }: Props = $props();
 
     NProgress.configure({
         // Full list: https://github.com/rstacruz/nprogress#configuration
         minimum: 0.16
     });
 
-    $: {
+    run(() => {
         if ($navigating) {
             NProgress.start();
         }
         if (!$navigating) {
             NProgress.done();
         }
-    }
+    });
 
-    let navOpen = false;
+    let navOpen = $state(false);
     const toggleNav = () => navOpen = !navOpen;
 </script>
 <style>
@@ -46,5 +53,5 @@
     </Collapse>
 </Navbar>
 <div>
-    <slot/>
+    {@render children?.()}
 </div>

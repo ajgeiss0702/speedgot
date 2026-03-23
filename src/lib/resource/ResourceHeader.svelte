@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
     import DownloadButton from "$lib/resource/DownloadButton.svelte";
     import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
     import {getContext} from "svelte";
     import LoadingText from "$lib/LoadingText.svelte";
 
-    export let data;
+    let { data } = $props();
 
     let latestVersion = getContext("latestVersion");
 </script>

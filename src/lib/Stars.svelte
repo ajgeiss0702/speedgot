@@ -1,7 +1,11 @@
-<script>
-    export let rating = 5;
-    export let size = "1em";
+<script lang="ts">
     import "$lib/css/star.css";
+    interface Props {
+        rating?: number;
+        size?: string;
+    }
+
+    let { rating = $bindable(5), size = "1em" }: Props = $props();
 
     rating = Math.round(rating * 1000) / 1000;
 

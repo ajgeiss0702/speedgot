@@ -1,11 +1,15 @@
-<script>
-    export let length = 1;
+<script lang="ts">
 
-    export let circle = false;
+    interface Props {
+        length?: number;
+        circle?: boolean;
+    }
+
+    let { length = $bindable(1), circle = false }: Props = $props();
 
     if(circle) length = 1;
 
-    let add = "-";
+    let add = $state("-");
     while(length > add.length) {
         add += "-";
     }

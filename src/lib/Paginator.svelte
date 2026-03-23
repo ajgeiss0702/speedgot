@@ -1,8 +1,8 @@
-<script>
-    import {Pagination, PaginationItem, PaginationLink} from "sveltestrap";
+<script lang="ts">
+    import {Pagination, PaginationItem, PaginationLink} from "@sveltestrap/sveltestrap";
     import {page} from "$app/stores"
 
-    export let pageNumber;
+    let { pageNumber } = $props();
 </script>
 <Pagination class="pagesNav">
     <PaginationItem disabled={pageNumber === 1}>

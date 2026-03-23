@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
     import {commas} from "$lib/utils";
-    import {Icon} from "sveltestrap";
+    import {Icon} from "@sveltestrap/sveltestrap";
 
     import ResourceIcon from "$lib/resource/ResourceIcon.svelte";
     import Stars from "$lib/Stars.svelte";
     import DateStamp from "$lib/DateStamp.svelte";
 
-    export let resource;
+    let { resource } = $props();
 </script>
 <style>
     a {

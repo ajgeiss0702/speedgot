@@ -1,16 +1,16 @@
 <svelte:head>
     <title>{data.user.name} - Speedgot</title>
 </svelte:head>
-<script>
-    import {Nav, NavItem, NavLink} from "sveltestrap";
+<script lang="ts">
+    import {Nav, NavItem, NavLink} from "@sveltestrap/sveltestrap";
     import {page} from "$app/stores";
     import {getContext, onMount, setContext} from "svelte";
     import AuthorIcon from "$lib/author/AuthorIcon.svelte";
     import LoadingText from "$lib/LoadingText.svelte";
 
-    export let data;
+    let { data, children } = $props();
 
-    let resourceCount = new Promise(() => {});
+    let resourceCount = $state(new Promise(() => {}));
 
     setContext("user", {
         getUser: () => data.user
@@ -90,5 +90,5 @@
             <NavLink href="/users/{slug}/reviews" active={$page.url.pathname.endsWith("reviews")}>Reviews</NavLink>
         </NavItem>
     </Nav>
-    <slot {slug}/>
+    {@render children?.({ slug, })}
 </div>

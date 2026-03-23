@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
     import {onMount} from "svelte";
     import LoadingText from "$lib/LoadingText.svelte";
 
-    export let id;
+    let { id } = $props();
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let fetchingPromise = new Promise(() => {});
+    let fetchingPromise = $state(new Promise(() => {}));
 
     onMount(() => {
         fetchingPromise = fetch("https://api.spiget.org/v2/categories/" + id).then(r => r.json());

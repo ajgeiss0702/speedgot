@@ -1,5 +1,5 @@
-<script>
-    export let resource;
+<script lang="ts">
+    let { resource } = $props();
 </script>
 <style>
     img {

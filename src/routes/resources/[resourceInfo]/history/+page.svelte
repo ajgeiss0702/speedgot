@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
     import DateStamp from "$lib/DateStamp.svelte";
     import {commas} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
 
-    export let data;
+    let { data } = $props();
 </script>
 <style>
     th.download {

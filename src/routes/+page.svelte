@@ -2,11 +2,11 @@
     <title>Speedgot</title>
     <meta name="description" content="Browse spigot resources faster">
 </svelte:head>
-<script>
+<script lang="ts">
     import Resource from "$lib/Resource.svelte";
-    import {Button} from "sveltestrap";
+    import {Button} from "@sveltestrap/sveltestrap";
 
-    export let data;
+    let { data } = $props();
 </script>
 <h1>Welcome!</h1>
 <br>

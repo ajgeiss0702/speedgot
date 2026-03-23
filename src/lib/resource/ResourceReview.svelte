@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import LoadingText from "$lib/LoadingText.svelte";
     import {decodeBase64Content} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
@@ -7,22 +7,26 @@
     import AuthorIcon from "$lib/author/AuthorIcon.svelte";
     import DateStamp from "$lib/DateStamp.svelte";
 
-    export let review;
-
-    export let userLink = true;
-
-    export let resourceName = false;
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let resource = new Promise(() => {});
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let resourceAuthor = getContext("author") ? getContext("author").getAuthor() : false;
 
 
+    interface Props {
+        review: any;
+        userLink?: boolean;
+        resourceName?: boolean;
+    }
+
+    let { review, userLink = true, resourceName = false }: Props = $props();
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    let userDetails = getContext("user") ? getContext("user").getUser() : false;
+    let resource = $state(new Promise(() => {}));
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let resourceAuthor = $state(getContext("author") ? getContext("author").getAuthor() : false);
+
+
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    let userDetails = $state(getContext("user") ? getContext("user").getUser() : false);
 
     function fetchUserDetails() {
         if(userDetails) return;

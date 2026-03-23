@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
     import {commas} from "$lib/utils";
     import Stars from "$lib/Stars.svelte";
     import DateStamp from "$lib/DateStamp.svelte";
     import {getContext} from "svelte";
     import LoadingText from "$lib/LoadingText.svelte";
 
-    export let data;
+    let { data } = $props();
 
     let latestVersion = getContext("latestVersion");
 </script>

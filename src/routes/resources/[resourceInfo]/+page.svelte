@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import {decodeBase64Content} from "$lib/utils";
 
-    export let data;
+    let { data } = $props();
 </script>
 <svelte:head>
     <meta name="description" content={data.tag}>

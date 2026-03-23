@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import {toTitleCase} from "$lib/utils";
 
-    export let data;
+    let { data } = $props();
 
     let identities = [];
 

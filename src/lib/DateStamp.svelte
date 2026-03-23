@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
     import {onDestroy, onMount} from "svelte";
     import {shortMonths, dateString, isSameDay, yesterday} from "$lib/utils";
 
-    export let epochSeconds;
+    let { epochSeconds } = $props();
 
-    let date = new Date(epochSeconds * 1000);
+    let date = $state(new Date(epochSeconds * 1000));
 
-    let secondsAgo;
+    let secondsAgo = $state();
     function updateSecondsAgo() {
         secondsAgo = (new Date().getTime() / 1000) - epochSeconds;
     }

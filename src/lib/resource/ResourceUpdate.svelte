@@ -1,12 +1,16 @@
-<script>
+<script lang="ts">
     import {decodeBase64Content} from "$lib/utils";
     import {getContext} from "svelte";
     import LoadingText from "$lib/LoadingText.svelte";
     import DateStamp from "$lib/DateStamp.svelte";
 
-    export let update;
-    export let inline = false;
-    export let link = false;
+    interface Props {
+        update: any;
+        inline?: boolean;
+        link?: boolean;
+    }
+
+    let { update, inline = false, link = false }: Props = $props();
 
     let authorPromise = getContext("author").getAuthor();
 </script>

@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import Resource from "$lib/Resource.svelte";
 
-    export let data;
+    let { data } = $props();
 </script>
 <br>
 {#each data.resources as resource (resource.id)}
