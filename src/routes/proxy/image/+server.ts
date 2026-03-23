@@ -15,6 +15,9 @@ export async function GET({ url }) {
     const response = new Response(blob);
 
     response.headers.set("original-content-type", imageResponse.headers.get("content-type") || "")
+    if(imageResponse.ok) {
+        response.headers.set("cache-control", "public, immutable, max-age=31536000");
+    }
 
     return response;
 
