@@ -9,13 +9,19 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			include: [
-				"/proxy/image",
-				"/resources/*",
-				"/test",
-				"/users/*",
-				"/"
-			]
+			routes: {
+				include: [
+					"/proxy/image",
+					"/resources/*",
+					"/test",
+					"/users/*",
+					"/"
+				],
+				exclude: [
+					"<all>",
+					"/*/clear.png"
+				]
+			}
 		})
 	}
 };
