@@ -19,7 +19,8 @@ const config = {
 				],
 				exclude: [
 					"<all>",
-					"/*/clear.png"
+					"/*/clear.png",
+					"/resources/*/data/*"
 				]
 			}
 		})
