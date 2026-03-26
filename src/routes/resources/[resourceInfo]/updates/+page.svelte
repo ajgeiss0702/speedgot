@@ -3,6 +3,9 @@
 
     let { data } = $props();
 </script>
+<svelte:head>
+    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.id}/updates">
+</svelte:head>
 <style>
     .container {
         border: 1px lightgray solid;

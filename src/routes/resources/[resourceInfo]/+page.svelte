@@ -5,6 +5,7 @@
 </script>
 <svelte:head>
     <meta name="description" content={data.tag}>
+    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.id}">
 </svelte:head>
 <div class="bb-content">
     {@html decodeBase64Content(data.description)}

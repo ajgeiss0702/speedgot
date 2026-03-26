@@ -3,6 +3,9 @@
 
     let { data } = $props();
 </script>
+<svelte:head>
+    <meta name="canonical" content="https://speedgot.ajg0702.us/users/{data.user.id}/resources">
+</svelte:head>
 <br>
 {#each data.resources as resource (resource.id)}
     <Resource {resource}/>

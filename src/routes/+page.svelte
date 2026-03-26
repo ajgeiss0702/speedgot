@@ -1,6 +1,7 @@
 <svelte:head>
     <title>Speedgot</title>
     <meta name="description" content="Browse spigot resources faster">
+    <link rel="canonical" href="https://speedgot.ajg0702.us/">
 </svelte:head>
 <script lang="ts">
     import Resource from "$lib/Resource.svelte";

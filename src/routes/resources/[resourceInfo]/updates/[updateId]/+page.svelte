@@ -12,6 +12,9 @@
         throw error(404, "Update not found");
     }
 </script>
+<svelte:head>
+    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.resource}/updates/{data.id}">
+</svelte:head>
 <style>
     .container {
         padding-top: 0.5em;
