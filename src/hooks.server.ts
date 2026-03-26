@@ -7,7 +7,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     const response = await resolve(event);
 
     const pagesRequests = event.platform?.env?.PAGES_REQUESTS;
-    if(pagesRequests) pagesRequests.writeDataPoint({
+    // only records requests with the host header to be sure theyre not internal requests
+    if(pagesRequests && event.request.headers.has("host")) pagesRequests.writeDataPoint({
         blobs: [
             "speedgot",
             event.url.pathname,
