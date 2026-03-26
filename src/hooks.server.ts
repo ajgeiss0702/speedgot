@@ -13,7 +13,8 @@ export const handle: Handle = async ({ event, resolve }) => {
             "speedgot",
             event.url.pathname,
             ua,
-            response.status + ""
+            response.status + "",
+            event.route.id
         ],
         doubles: [],
         indexes: ["speedgot"]
