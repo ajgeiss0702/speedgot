@@ -14,7 +14,7 @@
 {#if resource.icon && resource.icon.data}
     <img src={"data:image/png;base64," + resource.icon.data} alt="{resource.name} icon" height="64" width="64">
 {:else if resource.icon && resource.icon.url}
-    <img src="/proxy/image?url={encodeURIComponent(resource.icon.url)}" alt="{resource.name} icon" height="64" width="64"/>
+    <img src="/proxy/image?url={encodeURIComponent(resource.icon.url)}" alt="{resource.name} icon" height="64" width="64" loading="lazy"/>
 {:else}
     <img src="/img/resource_icon.png" class="no-icon" alt="{resource.name} icon" height="64" width="64"/>
 {/if}
