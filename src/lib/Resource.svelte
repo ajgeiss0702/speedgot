@@ -7,6 +7,9 @@
     import DateStamp from "$lib/DateStamp.svelte";
 
     let { resource } = $props();
+
+    const slugName = (resource.links?.discussion ?? resource.file?.url)?.split("/")[1]?.split(".")[0];
+    const slug = slugName ? slugName + "." + resource.id : resource.id;
 </script>
 <style>
     a {
@@ -83,7 +86,7 @@
         }
     }
 </style>
-<a href="/resources/{resource.id}">
+<a href="/resources/{slug}">
     <div class="shadowBox header">
         <ResourceIcon {resource}/>
         <div class="title-container">

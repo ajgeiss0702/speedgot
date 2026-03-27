@@ -6,6 +6,6 @@
 
     let { data } = $props();
 </script>
-{#each Object.keys(data) as resource (data[resource].id)}
-    <Resource resource={data[resource]}/>
+{#each data.resources as resource (resource.id)}
+    <Resource {resource}/>
 {/each}

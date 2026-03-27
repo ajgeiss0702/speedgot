@@ -8,7 +8,7 @@
     import ResourceInfo from "$lib/resource/ResourceInfo.svelte";
     import VersionInfo from "$lib/resource/VersionInfo.svelte";
     import ResourceHeader from "$lib/resource/ResourceHeader.svelte";
-    import {page} from "$app/stores";
+    import {page} from "$app/state";
     import LoadingText from "$lib/LoadingText.svelte";
 
     let { data, children } = $props();
@@ -41,14 +41,11 @@
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     let reivewCountPromise = $state(new Promise(() => {}));
 
-    const slug = data.file.url.split("/")[1];
+    const slugName = (data.links?.discussion ?? data.file.url).split("/")[1]?.split(".")[0];
+    const slug = slugName ? slugName + "." + data.id : data.id;
     onMount(() => {
-        if(slug.includes(".")) {
-            if($page.url.pathname.split("/").length === 3) {
-                window.history.replaceState({}, "", "/resources/" + slug);
-            }
-        } else {
-            console.warn("Slug (" + slug + ") does not contain a dot! Might be invalid");
+        if(slug && page.url.pathname.split("/").length === 3 && !page.url.pathname.includes(slug)) {
+            window.history.replaceState({}, "", "/resources/" + slug + "." + data.id);
         }
 
         for (let spoilerButton of document.getElementsByClassName("bbCodeSpoilerButton")) {
@@ -140,15 +137,15 @@
         <br>
         <Nav tabs>
             <NavItem>
-                <NavLink href="/resources/{slug}" active={$page.url.pathname.split("/").length === 3}>Overview</NavLink>
+                <NavLink href="/resources/{slug}" active={page.url.pathname.split("/").length === 3}>Overview</NavLink>
             </NavItem>
             {#if data.documentation}
                 <NavItem>
-                    <NavLink href="/resources/{slug}/documentation" active={$page.url.pathname.endsWith("documentation")}>Documentation</NavLink>
+                    <NavLink href="/resources/{slug}/documentation" active={page.url.pathname.endsWith("documentation")}>Documentation</NavLink>
                 </NavItem>
             {/if}
             <NavItem>
-                <NavLink href="/resources/{slug}/updates" active={$page.url.pathname.endsWith("updates") || ($page.url.pathname.includes("updates") && $page.params.updateId)}>
+                <NavLink href="/resources/{slug}/updates" active={page.url.pathname.endsWith("updates") || (page.url.pathname.includes("updates") && page.params.updateId)}>
                     Updates
                     {#await updateCountPromise}
                         (<LoadingText length={2}/>)
@@ -160,7 +157,7 @@
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/resources/{slug}/reviews" active={$page.url.pathname.endsWith("reviews")}>
+                <NavLink href="/resources/{slug}/reviews" active={page.url.pathname.endsWith("reviews")}>
                     Reviews
                     {#await reivewCountPromise}
                         (<LoadingText length={3}/>)
@@ -172,7 +169,7 @@
                 </NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/resources/{slug}/history" active={$page.url.pathname.endsWith("history")}>Version History</NavLink>
+                <NavLink href="/resources/{slug}/history" active={page.url.pathname.endsWith("history")}>Version History</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href={"https://spigotmc.org/" + data.links.discussion} target="_blank">Discussion <Icon name="box-arrow-up-right"/></NavLink>

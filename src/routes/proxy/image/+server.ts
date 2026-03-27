@@ -7,7 +7,7 @@ export async function GET({ url }) {
         throw error(400, "no url");
     }
 
-    const imageResponse = await fetch(fetchingUrl, {
+    const imageResponse = await fetch(new URL(fetchingUrl, "https://www.spigotmc.org/"), {
         headers: {
             "User-Agent": "Mozilla/5.0 (compatible; Speedgot-image-proxy/1.0.0; +https://speedgot.ajg0702.us) CFNetwork"
         }
