@@ -29,14 +29,16 @@
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             search()
-        }, 400);
+        }, 250);
     }
 
     function search() {
-        results = fetch("https://api.spiget.org/v2/search/resources/" + encodeURIComponent(query) + "?field=name&size=20&sort=-downloads").then(r => r.json())
         if(query) {
+            results = fetch("https://api.spiget.org/v2/search/resources/" + encodeURIComponent(query) + "?fields=name,tag,likes,links,rating,icon.url,author,category,downloads,updateDate&size=20&sort=-downloads")
+                .then(r => r.json())
             window.history.replaceState({}, "", "/resources/search?q=" + query);
         } else {
+            results = Promise.resolve([]);
             window.history.replaceState({}, "", "/resources/search");
         }
     }
