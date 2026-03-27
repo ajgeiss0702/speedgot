@@ -8,6 +8,6 @@ export async function load({fetch, params, url}) {
                     .filter(([linkName]) => linkName === "discussion")
                 ) : resource.links,
             })))
-            .then(r => {console.log(r); return r;})
+            // .then(r => {console.log(r); return r;})
     };
 }
