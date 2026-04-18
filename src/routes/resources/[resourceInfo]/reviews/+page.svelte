@@ -7,7 +7,7 @@
     const emptyPromise = new Promise(() => {})
 </script>
 <svelte:head>
-    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.id}/reviews">
+    <link rel="canonical" href="https://speedgot.ajg0702.us/resources/{data.id}/reviews">
 </svelte:head>
 <br/>
 {#each data.reviews as review}

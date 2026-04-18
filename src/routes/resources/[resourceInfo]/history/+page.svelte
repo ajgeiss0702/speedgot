@@ -6,7 +6,7 @@
     let { data } = $props();
 </script>
 <svelte:head>
-    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.id}/history">
+    <link rel="canonical" href="https://speedgot.ajg0702.us/resources/{data.id}/history">
 </svelte:head>
 <style>
     th.download {

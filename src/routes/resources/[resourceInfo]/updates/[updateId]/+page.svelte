@@ -13,7 +13,7 @@
     }
 </script>
 <svelte:head>
-    <meta name="canonical" content="https://speedgot.ajg0702.us/resources/{data.resource}/updates/{data.id}">
+    <link rel="canonical" href="https://speedgot.ajg0702.us/resources/{data.resource}/updates/{data.id}">
 </svelte:head>
 <style>
     .container {
