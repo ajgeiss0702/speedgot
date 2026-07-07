@@ -42,7 +42,11 @@
 </style>
 <div class="fw-bold title">
     {#if link}
-        <a class="stealthLink" href="updates/{update.id}">
+        <a
+                class="stealthLink"
+                href="updates/{update.id}"
+                rel={((Math.floor(Date.now() / 1e3) - update.date) > 2 * 365 * 24 * 60 * 60) ? "nofollow" : undefined}
+        >
             {update.title}
         </a>
     {:else}
