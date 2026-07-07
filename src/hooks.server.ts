@@ -14,7 +14,8 @@ export const handle: Handle = async ({ event, resolve }) => {
             event.url.pathname,
             ua,
             response.status + "",
-            event.route.id
+            event.route.id,
+            event.request.headers.get("host")
         ],
         doubles: [],
         indexes: ["speedgot"]
