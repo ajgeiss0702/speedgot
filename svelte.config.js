@@ -20,7 +20,8 @@ const config = {
 				exclude: [
 					"<all>",
 					"/*/clear.png",
-					"/resources/*/data/*"
+					"/resources/*/data/*",
+					"/ip"
 				]
 			}
 		})
