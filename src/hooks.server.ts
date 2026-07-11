@@ -1,8 +1,17 @@
-import type { Handle } from "@sveltejs/kit";
+import {error, type Handle} from "@sveltejs/kit";
 import {dev} from "$app/environment";
+
+let lastYandexRequest = 0;
 
 export const handle: Handle = async ({ event, resolve }) => {
     const ua = event.request.headers.get("user-agent");
+    if(ua?.includes("yandex.com/bots")) {
+        if(Date.now() - lastYandexRequest < 5e3) {
+            throw error(429, "You are sending too many requests! Please respect the crawl-delay")
+        } else {
+            lastYandexRequest = Date.now();
+        }
+    }
 
     const response = await resolve(event);
 
