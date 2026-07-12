@@ -1,6 +1,6 @@
 import {error} from "@sveltejs/kit";
 
-export async function GET({ url }) {
+export async function GET({ url, request }) {
 
     const fetchingUrl = url.searchParams.get("url");
     if(!fetchingUrl) {
@@ -12,6 +12,10 @@ export async function GET({ url }) {
             "User-Agent": "Mozilla/5.0 (compatible; Speedgot-image-proxy/1.0.0; +https://speedgot.ajg0702.us) CFNetwork"
         }
     });
+
+    if(fetchingUrl.startsWith("https://media.discordapp.net") && !request.headers.has("Referer")) {
+        throw error(400, "This is not a discord image proxy!");
+    }
 
     if(!imageResponse.headers.get("content-type")?.startsWith("image/")) {
         console.warn("Non-image requested:", fetchingUrl, imageResponse.headers.get("content-type")+"", imageResponse.status, imageResponse.statusText);
