@@ -2,7 +2,7 @@ import {error, type Handle} from "@sveltejs/kit";
 import {dev} from "$app/environment";
 import {retryD1} from "$lib/utils";
 
-let lastLocalYandexRequest = 0;
+const lastLocalBotRequest: {[key: string]: number} = {};
 
 // yandex is the reason I made this because it was spamming the crap out of the site, but I added the others for safety since the system already existed
 const bots = {
@@ -18,34 +18,35 @@ export const handle: Handle = async ({ event, resolve }) => {
     const ua = event.request.headers.get("user-agent");
     for (const [c, bot] of Object.entries(bots)) {
         if(ua?.includes(c)) {
+            if(lastLocalBotRequest[bot] === undefined) lastLocalBotRequest[bot] = 0;
             // check local before d1 to save d1 reads for when its being super spammy
-            if(Date.now() - lastLocalYandexRequest < 55e3) {
+            if(Date.now() - lastLocalBotRequest[bot] < 55e3) {
                 throw error(429, "You are sending too many requests! Please respect the crawl-delay")
             }
             const db = event.platform?.env?.DB;
-            const lastD1YandexRequest = (db && await retryD1(() =>
+            const lastD1BotRequest = (db && await retryD1(() =>
                 db.prepare("select lastRequest from bots where bot = ?")
                     .bind(bot)
                     .first<number>("lastRequest")
             )) ?? 0;
-            const lastYandexRequest = Math.max(lastLocalYandexRequest, lastD1YandexRequest);
-            if(Date.now() - lastYandexRequest < 55e3) {
-                if(lastYandexRequest > lastLocalYandexRequest) lastLocalYandexRequest = lastYandexRequest; // set local from d1
+            const lastBotRequest = Math.max(lastLocalBotRequest[bot], lastD1BotRequest);
+            if(Date.now() - lastBotRequest < 55e3) {
+                if(lastBotRequest > lastLocalBotRequest[bot]) lastLocalBotRequest[bot] = lastBotRequest; // set local from d1
                 throw error(429, "You are sending too many requests! Please respect the crawl-delay")
             } else {
-                lastLocalYandexRequest = Date.now();
+                lastLocalBotRequest[bot] = Date.now();
                 if(db) event.platform?.context?.waitUntil(retryD1(() =>
                     db.prepare("insert into bots (bot, lastRequest) values (?, ?) " +
                         "on conflict do " +
                         "update set lastRequest = COALESCE(" +
-                        "MAX(excluded.lastRequest, bots.lastRequest), " +
-                        "excluded.lastRequest, " +
-                        "bots.lastRequest" +
+                            "MAX(excluded.lastRequest, bots.lastRequest), " +
+                            "excluded.lastRequest, " +
+                            "bots.lastRequest" +
                         ")"
                     )
                         .bind(
                             bot,
-                            lastLocalYandexRequest
+                            lastLocalBotRequest[bot]
                         )
                         .run()
                 ))
