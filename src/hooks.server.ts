@@ -4,10 +4,14 @@ import {retryD1} from "$lib/utils";
 
 let lastLocalYandexRequest = 0;
 
+// yandex is the reason I made this because it was spamming the crap out of the site, but I added the others for safety since the system already existed
 const bots = {
     "yandex.com/bots": "yandex",
     "claude": "claude",
     "Claude": "claude",
+    "MJ12": "mj12",
+    "SERanking": "SERanking",
+    "DotBot": "DotBot",
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
