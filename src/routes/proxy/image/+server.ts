@@ -13,7 +13,7 @@ export async function GET({ url, request }) {
         }
     });
 
-    if(fetchingUrl.startsWith("https://media.discordapp.net") && !request.headers.has("Referer")) {
+    if(fetchingUrl.startsWith("https://media.discordapp.net") && (!request.headers.has("Referer") || !fetchingUrl.includes("hm"))) {
         throw error(400, "This is not a discord image proxy!");
     }
 
