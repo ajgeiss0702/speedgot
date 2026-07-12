@@ -1,4 +1,4 @@
-import {AnalyticsEngineDataset} from "@cloudflare/workers-types"
+import {AnalyticsEngineDataset, D1Database} from "@cloudflare/workers-types"
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
@@ -11,6 +11,7 @@ declare global {
         interface Platform {
             env?: {
                 PAGES_REQUESTS?: AnalyticsEngineDataset;
+                DB: D1Database;
             },
             context?: {
                 /**
