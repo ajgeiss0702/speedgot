@@ -1,3 +1,7 @@
 User-agent: *
 Crawl-delay: 60
 Disallow: /proxy/image
+
+User-Agent: Yandex
+Disallow: /resources/*/updates/*
+Crawl-delay: 60
