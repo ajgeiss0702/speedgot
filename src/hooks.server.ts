@@ -20,7 +20,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         if(ua?.includes(c)) {
             if(lastLocalBotRequest[bot] === undefined) lastLocalBotRequest[bot] = 0;
             // check local before d1 to save d1 reads for when its being super spammy
-            if(Date.now() - lastLocalBotRequest[bot] < 55e3) {
+            if(Date.now() - lastLocalBotRequest[bot] < 59e3) {
                 throw error(429, "You are sending too many requests! Please respect the crawl-delay")
             }
             const db = event.platform?.env?.DB;
@@ -30,7 +30,7 @@ export const handle: Handle = async ({ event, resolve }) => {
                     .first<number>("lastRequest")
             )) ?? 0;
             const lastBotRequest = Math.max(lastLocalBotRequest[bot], lastD1BotRequest);
-            if(Date.now() - lastBotRequest < 55e3) {
+            if(Date.now() - lastBotRequest < 59e3) {
                 if(lastBotRequest > lastLocalBotRequest[bot]) lastLocalBotRequest[bot] = lastBotRequest; // set local from d1
                 throw error(429, "You are sending too many requests! Please respect the crawl-delay")
             } else {
