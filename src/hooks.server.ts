@@ -12,7 +12,8 @@ const bots = {
     "MJ12": "mj12",
     "SERanking": "SERanking",
     "DotBot": "DotBot",
-    "asn:132203": "Tencent"
+    "asn:132203": "Tencent",
+    "asn:45090": "Tencent"
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
