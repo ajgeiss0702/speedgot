@@ -1,6 +1,6 @@
 import {error, type Handle} from "@sveltejs/kit";
 import {dev} from "$app/environment";
-import {retryD1} from "$lib/utils";
+import {commas, retryD1} from "$lib/utils";
 
 const lastLocalBotRequest: {[key: string]: number} = {};
 
@@ -32,9 +32,11 @@ export const handle: Handle = async ({ event, resolve }) => {
             const lastBotRequest = Math.max(lastLocalBotRequest[bot], lastD1BotRequest);
             if(Date.now() - lastBotRequest < 59e3) {
                 if(lastBotRequest > lastLocalBotRequest[bot]) lastLocalBotRequest[bot] = lastBotRequest; // set local from d1
+                console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), blocking`)
                 throw error(429, "You are sending too many requests! Please respect the crawl-delay")
             } else {
                 lastLocalBotRequest[bot] = Date.now();
+                console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), allowing`)
                 if(db) event.platform?.context?.waitUntil(retryD1(() =>
                     db.prepare("insert into bots (bot, lastRequest) values (?, ?) " +
                         "on conflict do " +
