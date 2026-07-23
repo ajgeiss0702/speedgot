@@ -12,47 +12,65 @@ const bots = {
     "MJ12": "mj12",
     "SERanking": "SERanking",
     "DotBot": "DotBot",
+    "asn:132203": "Tencent"
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
     const ua = event.request.headers.get("user-agent");
-    for (const [c, bot] of Object.entries(bots)) {
-        if(ua?.includes(c)) {
-            if(lastLocalBotRequest[bot] === undefined) lastLocalBotRequest[bot] = 0;
-            // check local before d1 to save d1 reads for when its being super spammy
-            if(Date.now() - lastLocalBotRequest[bot] < 59e3) {
-                throw error(429, "You are sending too many requests! Please respect the crawl-delay")
-            }
-            const db = event.platform?.env?.DB;
-            const lastD1BotRequest = (db && await retryD1(() =>
-                db.prepare("select lastRequest from bots where bot = ?")
-                    .bind(bot)
-                    .first<number>("lastRequest")
-            )) ?? 0;
-            const lastBotRequest = Math.max(lastLocalBotRequest[bot], lastD1BotRequest);
-            if(Date.now() - lastBotRequest < 59e3) {
-                if(lastBotRequest > lastLocalBotRequest[bot]) lastLocalBotRequest[bot] = lastBotRequest; // set local from d1
-                console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), blocking`)
-                throw error(429, "You are sending too many requests! Please respect the crawl-delay")
-            } else {
-                lastLocalBotRequest[bot] = Date.now();
-                console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), allowing`)
-                if(db) event.platform?.context?.waitUntil(retryD1(() =>
-                    db.prepare("insert into bots (bot, lastRequest) values (?, ?) " +
-                        "on conflict do " +
-                        "update set lastRequest = COALESCE(" +
-                            "MAX(excluded.lastRequest, bots.lastRequest), " +
-                            "excluded.lastRequest, " +
-                            "bots.lastRequest" +
-                        ")"
+    async function limit(bot: string) {
+        if(lastLocalBotRequest[bot] === undefined) lastLocalBotRequest[bot] = 0;
+        // check local before d1 to save d1 reads for when its being super spammy
+        if(Date.now() - lastLocalBotRequest[bot] < 59e3) {
+            throw error(429, "You are sending too many requests! Please respect the crawl-delay")
+        }
+        const db = event.platform?.env?.DB;
+        const lastD1BotRequest = (db && await retryD1(() =>
+            db.prepare("select lastRequest from bots where bot = ?")
+                .bind(bot)
+                .first<number>("lastRequest")
+        )) ?? 0;
+        const lastBotRequest = Math.max(lastLocalBotRequest[bot], lastD1BotRequest);
+        if(Date.now() - lastBotRequest < 59e3) {
+            if(lastBotRequest > lastLocalBotRequest[bot]) lastLocalBotRequest[bot] = lastBotRequest; // set local from d1
+            console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), blocking`)
+            throw error(429, "You are sending too many requests! Please respect the crawl-delay")
+        } else {
+            lastLocalBotRequest[bot] = Date.now();
+            console.debug(commas(Date.now() - lastBotRequest) + `ms since the last ${bot} request (from d1), allowing`)
+            if(db) event.platform?.context?.waitUntil(retryD1(() =>
+                db.prepare("insert into bots (bot, lastRequest) values (?, ?) " +
+                    "on conflict do " +
+                    "update set lastRequest = COALESCE(" +
+                    "MAX(excluded.lastRequest, bots.lastRequest), " +
+                    "excluded.lastRequest, " +
+                    "bots.lastRequest" +
+                    ")"
+                )
+                    .bind(
+                        bot,
+                        lastLocalBotRequest[bot]
                     )
-                        .bind(
-                            bot,
-                            lastLocalBotRequest[bot]
-                        )
-                        .run()
-                ))
+                    .run()
+            ))
+        }
+    }
+    const asn: number | undefined = event.platform?.cf.asn;
+    for (const [c, bot] of Object.entries(bots)) {
+        if(c.startsWith("asn:")) {
+            if(asn) {
+                const list = c.substring("asn:".length)
+                    .split(",")
+                    .map(asn => Number(asn));
+
+                if(list.includes(asn)) {
+                    await limit(bot);
+                    break;
+                }
             }
+
+
+        } else if(ua?.includes(c)) {
+            await limit(bot);
             break;
         }
     }
