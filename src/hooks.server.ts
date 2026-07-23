@@ -54,7 +54,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             ))
         }
     }
-    const asn: number | undefined = event.platform?.cf.asn;
+    const asn: number | undefined = event.platform?.cf?.asn;
     for (const [c, bot] of Object.entries(bots)) {
         if(c.startsWith("asn:")) {
             if(asn) {
@@ -67,8 +67,6 @@ export const handle: Handle = async ({ event, resolve }) => {
                     break;
                 }
             }
-
-
         } else if(ua?.includes(c)) {
             await limit(bot);
             break;
