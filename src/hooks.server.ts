@@ -12,6 +12,8 @@ const bots = {
     "MJ12": "mj12",
     "SERanking": "SERanking",
     "DotBot": "DotBot",
+    "Baiduspider": "Baiduspider",
+    "applebot": "apple",
     "asn:132203,45090": "Tencent",
 }
 
@@ -84,7 +86,8 @@ export const handle: Handle = async ({ event, resolve }) => {
             ua,
             response.status + "",
             event.route.id,
-            event.request.headers.get("host")
+            event.request.headers.get("host"),
+            asn + ""
         ],
         doubles: [],
         indexes: ["speedgot"]
